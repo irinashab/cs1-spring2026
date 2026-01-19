@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS1: Lesson 1</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="assets/style.css">
+    <script type="text/javascript">
+    MathJax = {
+        tex: {
+            inlineMath: [['\\(', '\\)']],
+            displayMath: [['$$', '$$']]
+        }
+    };
+</script>
+<script type="text/javascript" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0 auto;
+            max-width: 800px;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+       ul {
+    list-style-type: disc;
+    margin: 10px 0;
+    padding-left: 20px;
+}
+
+ul ul {
+    list-style-type: circle; /* For nested lists */
+    margin: 5px 0;
+    padding-left: 20px;
+}
+
+li {
+    margin: 5px 0; /* Adds spacing between list items */
+}
+
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 2px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        h3 {
+            margin-bottom: 0; /* Removes bottom margin */
+            padding-bottom: 0; /* Removes bottom padding */
+        }
+    <\style>
+        <style type="text/css">
+      @media (prefers-color-scheme: dark) {
+         html {
+           filter: invert(100%);
+        }
+
+        .youtube-container iframe {
+          filter: invert(100%);
+        }
+
+        .noreverse {
+          filter: invert(100%);
+        }
+      }
+    
+
+      .youtube-container {
+        overflow: hidden;
+        padding-bottom: 56.25%;
+        position: relative;
+        height: 0;
+      }
+
+      .youtube-container iframe {
+        height: 100%;
+        width: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+      }
+    </style>
+    <script id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js">
+    </script>
+</head>
+
+    <body>
+    <h1>Lesson 1: Welcome</h1>
+    <h2>What is Computer Science?</h2>
+    <p>Computer science is a fascinating and multifaceted field that goes far beyond the tools and devices it employs.
+    As computer scientists Michael R. Fellows and Ian Parberry aptly stated in an article for <em>Computing Research News</em>:
+<blockquote>"Computer Science is no more about computers than astronomy is about telescopes, biology is about microscopes, or chemistry is about beakers and test tubes. Science is not about tools. It is about how we use them and what we find out when we do."</blockquote>
+</p>
+<p>So, what exactly is computer science? Among the many definitions, one that best captures the depth and breadth of the field comes from
+    Professors Norman Gibbs and Allen Tucker. According to them, the central concept of computer science is the <strong>algorithm</strong></p>
+
+<ol>
+<li> <strong>Analyzing Algorithms</strong>: Studying the behavior of algorithms to ensure they are correct and efficient, focusing on their formal and mathematical properties.
+></li>
+<li><strong>Building Hardware</strong>: Designing and constructing computer systems capable of executing these algorithms.</li>
+  
+        <li><strong>Programming Languages</strong>: Creating languages to translate algorithms into machine-readable instructions for execution by hardware.</li>
+        <li><strong>Software Design</strong>: Identifying critical problems and developing correct, efficient software solutions.</li>       
+    
+</ol>
+        <p>To fully appreciate this definition, it's essential to understand what an algorithm is. The dictionary defines an algorithm as:
+            <blockquote><em>"A procedure for solving a mathematical problem in a finite number of steps that frequently involves repetition of an operation; broadly, a step-by-step method for accomplishing some task."</em></blockquote>
+In simpler terms, an algorithm is an ordered sequence of instructions guaranteed to solve a specific problem. Algorithms aren’t just theoretical constructs—they are everywhere in our daily lives. For instance, can you think of examples 
+        of algorithms you use in real life, such as following a recipe, navigating with a map, or sorting items in order?<br/>
+        To gain a broader understanding of computer science, we can visualize the field as a six-layered pyramid, representing its many components and connections.
+  
+</p>
+        <p><img src="assets/images/cspyramid.png" alt="picturing comp sci as a 6 layers pyramid" width="410" height="229"></p>
+        <p>We will talk about each level of this pyramid during this semester.</p>
+<h1>Let's start coding!</h1>
+<h2 id="starting-with-processing">Starting with Processing</h2>
+<p>Start by visiting <a href="https://processing.org/download">https://processing.org/download</a> and selecting the Windows, Mac, or Linux version depending on what machine you have. Installation on each machine is straightforward:</p>
+<ul>
+<li><p>On Windows, you’ll have a .zip file. Double-click it and drag the folder inside to a location on your hard disk. Usually, it is Program Files, but you can simply move it to the desktop, but the important thing is for the processing folder to be unzipped. Then double-click processing.exe to start.</p></li>
+<li><p>The Mac OS X version is also a .zip file. Double-click it and drag the Processing icon to the Applications folder. If you’re using someone else’s machine and can’t modify the Applications folder, just drag the icon to the desktop. Then double-click the Processing icon to start.</p></li>
+<li><p>The Linux version is a .tar.gz file, which should be familiar to most Linux users. Download the file to your home directory, then open a terminal window, and type: <em>tar xvfz processing-xxxx.tgz</em> (Replace xxxx with the rest of the file’s name, which is the version number.) This will create a folder named processing-xxxx or something similar. Then change to that directory:<em>cd processing-xxxx</em> and run it: <em>./processing</em></p></li>
+</ul>
+<p>Processing consists of:</p>
+<ul>
+<li><p>The Processing Development Environment (PDE).</p></li>
+<li><p>A collection of functions (also referred to as commands or methods) that make up the “core” programming interface, or Application Programming Interface(API).</p></li>
+<li><p>A language syntax, identical to Java but with a few modifications.</p></li>
+<li><p>An active online community, based at <a href="http://processing.org">http://processing.org</a></p></li>
+</ul>
+<h2 id="processing-environment">Processing Environment</h2>
+<p>The Processing Development Environment (PDE) consists of a simple text editor for writing code, a message area, a text console, tabs for managing files, a toolbar with buttons for common actions, and a series of menus.See the details at <a href="https://processing.org/environment/#processing-development-environment-pdeRL">PDE</a> You can configure the PDE to your taste, check <a href="https://processing.org/environment/#preferences">preferences</a></p>
+<h2 id="sketching-with-processing">Sketching with Processing</h2>
+<p>The Processing equivalent of a "Hello World" program is simply to draw a simple shape: a point, a line, a rectangle, etc. The details are here: <a href="https://processing.org/tutorials/coordinatesystemandshapes">Simple Shapes</a></p>
+<h2 id="adding-color-to-your-sketch">Adding color to your sketch</h2>
+<p>Read here about adding different colors to your sketch: <a href="https://processing.org/tutorials/color/">RGB colors</a></p>
+<p><strong>Now look at this lecture’s examples! Read the comments carefully!</strong></p>
+
+        
+       
+</body></html>
