@@ -190,3 +190,19 @@ blockquote {
   padding-left: 12px;
   border-left: 4px solid var(--border);
 }
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--link);
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.button:hover {
+    background-color: var(--link-hover);
+    text-decoration: none;
+    color: white;
+}
