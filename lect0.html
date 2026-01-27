@@ -82,11 +82,20 @@
     <li><a href="https://www.nasa.gov/from-hidden-to-modern-figures/" target="_blank" rel="noopener noreferrer">Hidden Figures</a></li>
     <li><a href="https://www.turing.org.uk/" target="_blank" rel="noopener noreferrer">Alan Turing</a></li>
   </ul>
-
+<p>For those who are interested in the history of computer science, I can recommend a book  "The Innovators: How a Group of Hackers, Geniuses, and Geeks Created the Digital Revolution." by Walter Isaacson (Simon & Schuster). The book starts with the story of Ada Lovelace and talks about many other fascinating personalities, such as Vannevar Bush, Alan Turing, John von Neumann, and many others.
+</p>
  </main>
-<footer>
-       <p>MAT 1520 Computer Science 1  - Lesson 0</p>
-        
-    </footer>
+<div id="footer-placeholder"></div>
+
+<script>
+  fetch("assets/includes/footer.html")
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById("footer-placeholder").innerHTML = html;
+    })
+    .catch(err => console.error("Footer load failed:", err));
+</script>
+
+
     </body>
 </html>
