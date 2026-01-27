@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CS1 Syllabus — Spring 2026</title>
-   <link rel="stylesheet" href="assets/style.css">
+   <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
 <h1>MAT1520 CRN 61741 Computer Science I</h1>
@@ -134,4 +134,14 @@ The final project must be accompanied by a written report. Please consult Bright
 <p>Cellphones are like toddlers—always looking for trouble—so keep them silenced and out of sight during class. If your phone rings, you’ll owe us a performance (karaoke, anyone?). Emergencies are the only exception, but Instagram and memes can wait—focus on the real learning happening here!</p>
 <p>With that said, I take classroom focus seriously. If I see you using your phone during class, I may ask you to leave.</p>
 </body>
+<div id="footer-placeholder"></div>
+
+<script>
+  fetch("assets/includes/footer.html")
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById("footer-placeholder").innerHTML = html;
+    })
+    .catch(err => console.error("Footer load failed:", err));
+</script>
 </html>
