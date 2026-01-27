@@ -57,6 +57,16 @@
     <strong>If you are submitting multiple sketches for a single assignment:</strong>
     place all sketch folders inside one parent folder, then compress (zip) that parent folder and submit the single <code>.zip</code>.
   </div>
+<div id="footer-placeholder"></div>
+
+<script>
+  fetch("assets/includes/footer.html")
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById("footer-placeholder").innerHTML = html;
+    })
+    .catch(err => console.error("Footer load failed:", err));
+</script>
 
 </body>
 </html>

@@ -132,9 +132,16 @@
 
   <p><strong>Now look at this lecture’s examples! Read the comments carefully!</strong></p>
    </main>
-<footer>
-       <p>MAT 1520 Computer Science 1  - Lesson 1</p>
-        
-    </footer>
+<div id="footer-placeholder"></div>
+
+<script>
+  fetch("assets/includes/footer.html")
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById("footer-placeholder").innerHTML = html;
+    })
+    .catch(err => console.error("Footer load failed:", err));
+</script>
+
 </body>
 </html>
