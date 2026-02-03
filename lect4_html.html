@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lesson 4: Variables, Scope, and Memory</title>
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+
+<body>
+  <main>
+    <header>
+      <h1>Lesson 4: Variables, Scope, and Memory</h1>
+      <p><em>
+        This lesson builds on our first look at variables. Here we focus on where variables exist,
+        how long they live, and how the computer decides which value to use.
+      </em></p>
+       <p>As variables change, programs must make decisions based on their current values, and the order in which updates happen becomes part of the program’s logic.</br>
+Understanding how values change is the first step toward writing programs that can respond intelligently to different situations.</p>
+
+      <hr />
+    </header>
+
+    <section>
+      <h2>1. Variables Still Change Over Time</h2>
+      <p>A variable stores <strong>one value at a time</strong>, but that value can change.</p>
+
+      <pre><code>int x = 5;
+x = 8;
+println(x);
+</code></pre>
+
+      <p>Once <code>x</code> is updated, the old value is gone. The computer does not remember previous values unless we explicitly store them.</p>
+      <hr />
+    </section>
+
+    <section>
+      <h2>2. Order Matters</h2>
+      <p>Programs run top to bottom, one line at a time.</p>
+
+      <pre><code>int x = 3;
+x= x + 2;
+x = x * 2;
+println(a);
+</code></pre>
+
+      <p>Each line uses the <em>current</em> value of <code>a</code>. Reading code slowly and in order is essential.</p>
+      <hr />
+    </section>
+
+    <section>
+      <h2>3. Copying Values (Not Linking Variables)</h2>
+
+      <pre><code>int x = 7;
+int y = x;
+x = 15;
+println(y);
+</code></pre>
+
+      <p><code>b</code> receives a copy of the value stored in <code>a</code> at that moment. Later changes to <code>a</code> do not affect <code>b</code>.</p>
+
+      <h3>Memory Diagram</h3>
+      <pre><code>x ──▶ 7
+y ──▶ 7
+
+(after x = 15)
+
+x ──▶ 15
+y ──▶ 7
+</code></pre>
+
+      <p>Variables point to values. Reassigning a variable does not retroactively change other variables.</p>
+      <hr />
+    </section>
+
+    <section>
+      <h2>4. Scope: Where Variables Exist</h2>
+      <p><strong>Scope</strong> describes <em>where</em> a variable can be used in a program.</p>
+
+      <ul>
+        <li>A variable declared <strong>outside</strong> all functions is global.</li>
+        <li>A variable declared <strong>inside</strong> a function or block is local.</li>
+      </ul>
+
+      <pre><code>int globalCount = 0;
+
+void draw() {
+  int localCount = 5;
+  println(localCount);
+}
+</code></pre>
+
+      <p><code>localCount</code> only exists inside <code>draw()</code>. The rest of the program cannot see it.</p>
+      <hr />
+    </section>
+
+    <section>
+      <h2>5. Lifetime: Variables and <code>draw()</code></h2>
+      <p><code>draw()</code> runs again and again. Variables created inside it are created <em>again</em> each time.</p>
+
+      <pre><code>void draw() {
+  int a = 5;
+  a = a + 1;
+  println(a);
+}
+</code></pre>
+
+      <p>This prints <code>1</code> every time, because <code>x</code> does not survive between frames.</p>
+
+      <h3>Memory Diagram Over Time</h3>
+      <pre><code>Frame 1:  a → 5 → 6 → printed → destroyed
+Frame 2:  a → 5 → 6 → printed → destroyed
+Frame 3:  a → 5 → 6 → printed → destroyed
+</code></pre>
+      <hr />
+    </section>
+
+    <section>
+      <h2>6. Same Name, Different Variable</h2>
+
+      <pre><code>int count = 0;
+
+void draw() {
+  int count = 10;
+  println(count);
+}
+</code></pre>
+
+      <p>This code is legal and runs without errors. The <code>count</code> inside <code>draw()</code> is a <em>different variable</em> from the one outside.</p>
+
+      <p class="margin-note"><em>Same name ≠ same variable.</em></p>
+      <p class="margin-note"><em>Same name does not mean the same variable.</em></p>
+      <p class="margin-note"><em>The computer uses the closest variable it can see.</em></p>
+
+      <h3>Memory Diagram</h3>
+      <pre><code>Global memory:
+count → 0
+
+Inside draw():
+count → 10
+</code></pre>
+
+      <p>When the computer looks up a variable name, it uses the closest one that exists in the current scope.</p>
+      <hr />
+    </section>
+
+    <section>
+      <h2>7. Common Beginner Pitfall</h2>
+
+      <p>Reusing variable names in different places can make programs hard for humans to reason about, even when the computer is perfectly happy.</p>
+
+      <p>When in doubt:</p>
+      <ul>
+        <li>Use different variable names</li>
+        <li>Move shared variables outside <code>draw()</code></li>
+        <li>Trace memory on paper</li>
+      </ul>
+      <hr />
+    </section>
+
+    <section>
+      <h2>Key Takeaways</h2>
+      <ul>
+        <li>Variables store one value at a time</li>
+        <li>Assignment copies values</li>
+        <li>Scope determines which variable name is used</li>
+        <li>Variables inside <code>draw()</code> do not remember values automatically</li>
+      </ul>
+
+      <p><em>If this feels unintuitive, that is normal. Computers are extremely literal. Learning to program means learning to track state and memory carefully.</em></p>
+      <hr />
+    </section>
+
+    <section>
+      <h2>Next</h2>
+      <p>Now that we understand how values live and change, we are ready to talk about <strong>making decisions</strong>: choosing different actions based on current values.</p>
+    </section>
+  </main>
+</body>
+</html>

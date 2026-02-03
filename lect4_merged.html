@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CS1 – Lesson 4: More About Variables</title>
+<link href="assets/style.css" rel="stylesheet"/>
+</head>
+<body>
+<h1>Lesson 4: More About Variables</h1>
+
+<main><h1>Lesson 4: More About Variables</h1><p>
+    In this lesson, we take a closer look at variables—not as fixed containers, but as values that can change over time.
+    Once variables start changing, programs must keep track of <em>when</em> the change happens and <em>which</em> variable
+    you are actually using. That “which one?” question is the gateway to decisions and program logic.
+  </p><h2>1) Variables change over time</h2><p>A variable stores <strong>one value at a time</strong>, but that value can be updated.</p><pre><code>// Example 1: update a variable
+int x = 5;
+x = 8;
+println(x);  // prints 8
+</code></pre><p>
+    After <code>x = 8;</code>, the old value (<code>5</code>) is gone. The name <code>x</code> now refers to <code>8</code>.
+  </p><h2>2) Order matters</h2><p>Programs run top to bottom. Each line uses the <em>current</em> value.</p><pre><code>// Example 2: step-by-step updates
+int a = 3;
+a = a + 2;   // a becomes 5
+a = a * 2;   // a becomes 10
+println(a);  // prints 10
+</code></pre><h2>3) Copying values (variables are not “linked”)</h2><p>
+    When you write <code>int b = a;</code>, you copy the current value of <code>a</code> into <code>b</code>.
+    Later changes to <code>a</code> do not change <code>b</code>.
+  </p><pre><code>// Example 3: copying a value
+int a = 5;
+int b = a;   // b gets 5
+a = 10;
+println(b);  // still prints 5
+</code></pre><hr/><h2>Memory diagrams: tracking program state</h2><p>When code feels confusing, it helps to draw a quick “memory diagram”: a snapshot of what each variable stores <em>at that moment</em>.</p><p>Example:</p><pre><code>int a = 5;
+int b = a;
+a = 10;
+</code></pre><p>One possible diagram after each line:</p><pre><code>// after: int a = 5;
+a → 5
+b → (not created yet)
+
+// after: int b = a;
+a → 5
+b → 5
+
+// after: a = 10;
+a → 10
+b → 5
+</code></pre><p>These diagrams are not “official syntax”—they are just a thinking tool. We will use them whenever we need to reason about changing values.</p><h2>4) Scope: where a variable “exists”</h2><p>
+<strong>Scope</strong> answers two questions:
+  </p><ul>
+<li><strong>Where</strong> can I use this variable name?</li>
+<li><strong>How long</strong> does this variable stay alive?</li>
+</ul><p>
+    Processing (Java) has a few common scopes you will use constantly:
+  </p><ul>
+<li><strong>Global scope</strong>: declared outside any function (available in <code>setup()</code>, <code>draw()</code>, and any other function)</li>
+<li><strong>Function scope</strong>: declared inside a function (available only inside that function)</li>
+<li><strong>Block scope</strong>: declared inside curly braces <code>{ ... }</code> (available only inside that block)</li>
+</ul><h3>Global variables</h3><p>
+    Variables declared at the top level (outside any function) are called <strong>global</strong>.
+    They are visible in both <code>setup()</code> and <code>draw()</code>, and they keep their values over time.
+  </p><pre><code>// Global variables live outside functions:
+int x = 0;
+
+void setup() {
+  size(400, 400);
+}
+
+void draw() {
+  x = x + 1;
+  println(x);  // x increases over time
+}
+</code></pre><h3>Local variables inside a function</h3><p>
+    Variables declared inside a function are <strong>local</strong> to that function.
+    They are created when the function runs and disappear when the function finishes.
+  </p><pre><code>void draw() {
+  int y = 0;    // local to draw()
+  y = y + 1;
+  println(y);   // prints 1 every frame (surprising at first!)
+}
+</code></pre><p>
+    Why does it print <code>1</code> every time? Because <code>y</code> is recreated from scratch each time <code>draw()</code> runs.
+    If you want a value to persist across frames, it must be stored somewhere that persists—typically as a global variable.
+  </p><h3>Block scope: variables inside { ... }</h3><p>
+    A variable declared inside any pair of curly braces exists only inside those braces.
+  </p><pre><code>void draw() {
+  if (mouseX &gt; width/2) {
+    int side = 1;      // exists only inside this if-block
+    println(side);
+  }
+  // println(side);    // ERROR: side does not exist here
+}
+</code></pre><hr/><h2>5) A common scope bug: re-declaring a variable</h2><p>
+    This is one of the easiest mistakes to make as a beginner:
+    you intend to <em>update</em> a variable, but you accidentally <em>create a new one</em>.
+  </p><h3>Spot the bug (no jargon)</h3><p>
+    Read this carefully. What do you expect it to print: <code>10</code> or <code>0</code>?
+  </p><pre><code>int score = 0;
+
+void draw() {
+  int score = 10;      // looks innocent...
+  println(score);
+}
+</code></pre><p>
+    It prints <code>10</code>. But here’s the problem: the <code>score</code> inside <code>draw()</code> is a <em>different</em> variable
+    than the global <code>score</code>. The global one never changes.
+  </p><p>
+    When a local variable has the same name as a variable in an outer scope, the inner variable <strong>shadows</strong> (hides) the outer one.
+    This is legal code, but it can easily confuse humans.
+  </p><p><strong>Rule of thumb:</strong> if you already have a variable named <code>score</code>, do not declare another <code>score</code> inside <code>draw()</code>.</p><h3>Fix: update the existing variable (no redeclaration)</h3><pre><code>int score = 0;
+
+void draw() {
+  score = 10;      // update the global variable
+  println(score);  // now this is the global score
+}
+</code></pre><h2>7) Quick checks</h2><h3>Check A</h3><pre><code>int x = 0;
+
+void draw() {
+  x = x + 1;
+}
+</code></pre><p><strong>Question:</strong> After 5 frames, what is <code>x</code>?</p><h3>Check B</h3><pre><code>void draw() {
+  int x = 0;
+  x = x + 1;
+}
+</code></pre><p><strong>Question:</strong> After 5 frames, what is <code>x</code> (inside draw)?</p><h3>Check C (scope gotcha)</h3><pre><code>int x = 100;
+
+void draw() {
+  int x = 0;
+  x = x + 1;
+  println(x);
+}
+</code></pre><p><strong>Question:</strong> What prints, and what is the value of the global <code>x</code> after many frames?</p><hr/><h2>Key takeaways</h2><ul>
+<li>Variables change because of assignment (<code>=</code>), and the order of statements matters.</li>
+<li><strong>Scope</strong> determines where a variable name is visible and how long the variable lives.</li>
+<li>Global variables persist across frames; locals inside <code>draw()</code> are recreated each frame.</li>
+<li>A new variable can accidentally hide an existing one (scope). Avoid reusing names.</li>
+</ul><p>
+    Next, we’ll use these ideas to write programs that make decisions:
+    if a variable’s value is different, the program can choose a different path.
+  </p></main>
+<div id="footer-placeholder"></div>
+<script>
+  fetch("assets/includes/footer.html")
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById("footer-placeholder").innerHTML = html;
+    })
+    .catch(err => console.error("Footer load failed:", err));
+</script>
+</body>
+</html>
