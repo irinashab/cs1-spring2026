@@ -176,5 +176,15 @@ count → 10
       <p>Now that we understand how values live and change, we are ready to talk about <strong>making decisions</strong>: choosing different actions based on current values.</p>
     </section>
   </main>
+  <div id="footer-placeholder"></div>
+
+<script>
+  fetch("assets/includes/footer.html")
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById("footer-placeholder").innerHTML = html;
+    })
+    .catch(err => console.error("Footer load failed:", err));
+</script>
 </body>
 </html>
