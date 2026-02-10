@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CS1 — Three Doors Project</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body>
+  <header>
+    <h1>Three Doors Project</h1>
+    <p><strong>Interactive Story with Conditionals</strong></p>
+
+    <nav>
+      <ul>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#goals">Learning Goals</a></li>
+        <li><a href="#requirements">Requirements</a></li>
+        <li><a href="#media">Media (Images & Sound)</a></li>
+        <li><a href="#design-notes">Design Notes</a></li>
+        <li><a href="#submission">Submission & Presentation</a></li>
+        <li><a href="#reference">Quick Reference (Demos)</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+<p>Tip: Keep this page open while you code — the “Quick Reference” section has copy-paste patterns.</p>
+    <section id="overview">
+      <h2>Overview</h2>
+      <p>This is a <strong>group project</strong> in which you will design an interactive story game using <strong>Processing</strong>.</p>
+
+      <p>The player begins in front of <strong>three doors</strong>. Clicking on different doors (or areas of the screen) takes the player to different “rooms,” each with its own story and outcome.</p>
+
+      <p>Your program should use <strong>conditional statements</strong> to control the narrative flow, determining which scenes and events occur based on the player’s choices.</p>
+    </section>
+
+    <section id="goals">
+      <h2>Learning Goals</h2>
+      <p>By completing this project, you will practice:</p>
+      <ul>
+        <li>Using <code>if</code>, <code>else if</code>, and <code>else</code> to control program flow</li>
+        <li>Combining conditions using <code>&amp;&amp;</code> and <code>||</code> when appropriate</li>
+        <li>Tracking <strong>state</strong> (what room or scene the player is currently in)</li>
+        <li>Designing an interactive program with multiple possible outcomes</li>
+      </ul>
+    </section>
+
+    <section id="requirements">
+      <h2>Requirements</h2>
+      <p>Your project must meet the following requirements:</p>
+
+      <h3>1) Group work</h3>
+      <ul>
+        <li>Collaborate on story design, visuals, and code.</li>
+        <li>Divide responsibilities clearly.</li>
+      </ul>
+
+      <h3>2) Three doors</h3>
+      <ul>
+        <li>Display three clickable doors or regions on the screen.</li>
+        <li>Clicking a door must move the player to a different room or scene.</li>
+      </ul>
+
+      <h3>3) State management</h3>
+      <ul>
+        <li>Use a variable (for example, <code>int room</code>, <code>int scene</code>, or similar) to keep track of where the player is.</li>
+        <li>At any moment, the player should be in <strong>exactly one room</strong>.</li>
+      </ul>
+<h3>4) Return to the starting screen</h3>
+<ul>
+  <li>The player must be able to return to the starting screen with the three doors.</li>
+  <li>This may happen through a button, a mouse click, or a key press.</li>
+  <li>Returning to the start should reset the story state appropriately.</li>
+</ul>
+
+      <h3>5) Conditionals</h3>
+      <ul>
+        <li>Use <code>if</code>, <code>else if</code>, and <code>else</code> to control which scenes and events occur.</li>
+        <li>You may use nested <code>if</code> statements.</li>
+        <li>You may also use <code>&amp;&amp;</code> and <code>||</code> to combine conditions.</li>
+      </ul>
+
+      <h3>6) Multiple story paths</h3>
+      <ul>
+        <li>Your story must have <strong>at least three distinct paths</strong>.</li>
+        <li>Each path should lead to <strong>one or more possible endings</strong>.</li>
+      </ul>
+
+      <h3>7) Sound</h3>
+      <ul>
+        <li>Incorporate at least <strong>two</strong> sound effects (for example: door creaks, footsteps, ambient sounds).</li>
+        <li>Sound effects may be simple and short.</li>
+      </ul>
+
+      <h3>8) Images (optional)</h3>
+      <ul>
+        <li>You may insert images instead of creating your own drawings.</li>
+      </ul>
+    </section>
+
+    <section id="media">
+      <h2>Media (Images & Sound)</h2>
+
+      <h3>Sound Library</h3>
+      <ol>
+        <li>Open your sketch.</li>
+        <li>Select <strong>Sketch → Import Library → Add Library</strong>.</li>
+        <li>Search for <strong>Sound</strong>.</li>
+        <li>Install the <strong>Sound</strong> library from the Processing Foundation.</li>
+      </ol>
+      <p>See the <code>soundDemo</code> sketch for playback details. You may use placeholder sounds while developing your logic.</p>
+
+      <h3>How to Add Media Files to Your Project</h3>
+      <p>To add a media file (an image, a sound file, etc.) to your project:</p>
+      <ol>
+        <li>Open your sketch.</li>
+        <li>Select <strong>Sketch → Add File...</strong> → navigate to your file → click <strong>Open</strong>.</li>
+        <li>Or simply <strong>drag the file</strong> onto the open sketch window.</li>
+      </ol>
+      <p>This will create a <strong>data</strong> folder in your project. All media files must live inside <code>data</code>.</p>
+
+      <h3>How to Display an Image on the Canvas</h3>
+      <p>Processing supports these image types: <code>.gif</code>, <code>.jpg</code>, <code>.tga</code>, <code>.png</code>.</p>
+      <p>See the <code>imageDemo</code> sketch for details.</p>
+
+      <h3>Images (Optional, but Read Carefully)</h3>
+      <p>If you use images or sound, your sketch depends on external files. When submitting, make sure you submit the <strong>entire sketch folder</strong> (including the <code>data</code> folder), not just the <code>.pde</code> file.</p>
+    </section>
+
+    <section id="design-notes">
+      <h2>Design Notes (Read Carefully)</h2>
+      <ul>
+        <li>You are not expected to use advanced logic or complex math.</li>
+        <li>Focus on clear decisions and readable code.</li>
+        <li>If your logic becomes deeply nested and hard to read, that is a sign to:
+          <ul>
+            <li>reorganize your conditions, or</li>
+            <li>combine them using <code>&amp;&amp;</code> or <code>||</code>.</li>
+            <p>Think of the starting screen as just another “room” in your program.</p>
+
+          </ul>
+        </li>
+      </ul>
+      <p>Think of the starting screen as just another “room” in your program.</p>
+
+      <p>This project is about <strong>program flow</strong>, not visual polish.</p>
+    </section>
+
+    <section id="submission">
+      <h2>Submission & Presentation</h2>
+      <ul>
+        <li>Submit one Processing sketch per group.</li>
+        <li>Make sure all group members’ names appear at the top of the file.</li>
+        <li>Groups will present their projects in class on <strong>Friday, February 13</strong> (this deadline is negotiable).</li>
+      </ul>
+
+      <p>During the presentation, be prepared to briefly explain:</p>
+      <ul>
+        <li>how you tracked the current room or scene</li>
+        <li>how conditionals control the story flow</li>
+      </ul>
+
+      <h3>Final Reminder</h3>
+      <p>There is no single “correct” solution. What matters is that your program makes decisions clearly and consistently.</p>
+    </section>
+
+    <hr />
+
+    <section id="reference">
+      <h2>Quick Reference (Demos)</h2>
+      <p>You may copy and adapt these patterns in your lab and project.</p>
+
+      <h3>1) Images (must be in <code>data</code>)</h3>
+      <pre><code>PImage door;
+
+void setup() {
+  size(600, 400);
+  door = loadImage("door.png");  // file must be in data
+}
+
+void draw() {
+  image(door, 0, 0);
+}</code></pre>
+
+      <h3>2) Choosing what to draw (state + conditionals)</h3>
+      <pre><code>int room = 0;
+
+void draw() {
+  if (room == 0) {
+    background(200);
+    text("Start screen", 50, 50);
+  } else if (room == 1) {
+    background(100);
+    text("Room 1", 50, 50);
+  }
+}</code></pre>
+
+      <h3>3) Mouse inside rectangle (<code>&amp;&amp;</code>)</h3>
+      <pre><code>if (mouseX &gt; x &amp;&amp;
+    mouseX &lt; x + w &amp;&amp;
+    mouseY &gt; y &amp;&amp;
+    mouseY &lt; y + h) {
+  println("Mouse is inside the rectangle");
+}</code></pre>
+
+      <h3>4) Multiple triggers (<code>||</code>)</h3>
+      <pre><code>if (key == 'r' || key == 'R') {
+  room = 0; // return to start
+}</code></pre>
+
+      <h3>5) Sound (optional)</h3>
+      <pre><code>import processing.sound.*;
+
+SoundFile ding;
+
+void setup() {
+  size(400, 300);
+  ding = new SoundFile(this, "ding.mp3");
+}
+
+void mousePressed() {
+  try {
+    ding.play();
+  } catch (Exception e) {
+    println("Sound could not be played.");
+  }
+}</code></pre>
+
+      <h3>One design rule</h3>
+      <p><strong>At any moment, the program should be in exactly one state</strong> (one room, one screen, one situation).</p>
+    </section>
+<p><a href="#">Back to top</a></p>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script>
+    fetch("assets/includes/footer.html")
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById("footer-placeholder").innerHTML = html;
+      })
+      .catch(err => console.error("Footer load failed:", err));
+  </script>
+</body>
+</html>
