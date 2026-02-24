@@ -119,7 +119,7 @@ for (int i = 0; i &lt; 20; i++) {
   </li>
 
   <li>
-    <strong>Chessboard / checkerboard:</strong>
+    <strong>Chessboard / checkerboard (optional):</strong>
     Turn your grid into a checkerboard using alternating colors.
     <br><br>
 
@@ -345,13 +345,13 @@ while (i &lt; 20) {
       <li>Start at <code>x = 0</code> (for vertical stripes) or <code>y = 0</code> (for horizontal stripes).</li>
       <li>Continue while your position is still inside the canvas.</li>
       <li>Increase your position by the stripe width each time.</li>
-      <li>To alternate colors, compute a stripe index (for example, <code>col = x / stripeW</code>) and use <code>col % 2</code>.</li>
+      <li>To alternate colors, compute a stripe index (for example, <code>col = x / step</code>) and use <code>col % 2</code>.</li>
     </ul>
   </li>
 
   <li>
     <strong>A true <code>while</code> situation (unknown repetition): random until target.</strong><br>
-    Keep generating random integers from 0..9 until you get your target number (for example, 7). Print how many tries it took.
+    Keep generating random integers from 0..9 until you get your <code>target</code> number. Print how many tries it took.
   </li>
 </ol>
 
