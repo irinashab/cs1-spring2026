@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CS1 – Lesson 8: Structured Repetition</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header>
+  <h1>Lesson 8: Structured Repetition</h1>
+</header>
+
+<main>
+<h2>Part I — Structured Counting (for)</h2>
+<h3>After the loop drill: what did we actually learn?</h3>
+
+<p>
+  In the concentric circles exercise, many solutions looked like this:
+</p>
+
+<pre><code>for (int x = 0; x &lt;= 200; x += 10) {
+  ellipse(width/2, height/2, x, x);
+}</code></pre>
+
+<p>
+  This works — but the number of circles is hidden inside the arithmetic.
+  If we change 200 or 10, the total number of circles changes.
+</p>
+
+<p>
+  When the instruction says <strong>“draw exactly 20 circles”</strong>,
+  it is better to let the loop control the counting directly:
+</p>
+
+<pre><code>int step = 10;
+
+for (int i = 0; i &lt; 20; i++) {
+  int diam = (i + 1) * step;
+  ellipse(width/2, height/2, diam, diam);
+}</code></pre>
+
+<ul>
+  <li>The loop variable <code>i</code> controls <strong>how many times</strong> we repeat.</li>
+  <li>The diameter is <strong>derived</strong> from the count.</li>
+</ul>
+
+<p>
+  This is an important structural idea:
+</p>
+
+<ul>
+  <li><strong>The loop variable counts.</strong></li>
+  <li><strong>Other values respond to that count.</strong></li>
+</ul>
+
+<p>
+  So far, we have used loops to repeat something in <em>one direction</em> —
+  either increasing size or moving across the screen.
+</p>
+
+<p>
+  What if we want repetition in <strong>two directions at once</strong>?
+</p>
+<h2>Part II — Two-Dimensional Patterns (nested loops)</h2>
+
+<p>
+  So far, we used a loop to repeat something in <strong>one direction</strong> (for example, across the x-axis,
+  or increasing a diameter). Nested loops let us repeat in <strong>two directions</strong> — this is how we build
+  <em>grids</em>, <em>patterns</em>, and <em>tilings</em>.
+</p>
+
+<h3>Step 1: One loop = one direction</h3>
+<p>
+  This draws a row of circles across the screen:
+</p>
+
+<pre><code>void setup() {
+  size(600, 400);
+  background(255);
+
+  for (int x = 0; x &lt; width; x += 50) {
+    ellipse(x, height/2, 30, 30);
+  }
+}</code></pre>
+
+<p><strong>What changes?</strong> <code>x</code> changes. <strong>What stays the same?</strong> y, size.</p>
+
+<h3>Step 2: Two loops = two directions</h3>
+<p>
+  A nested loop is a loop inside another loop. Think: “For each <code>x</code>, run through all <code>y</code>.”
+</p>
+
+<pre><code>void setup() {
+  size(600, 400);
+  background(255);
+
+  for (int x = 0; x &lt; width; x += 50) {          // columns
+    for (int y = 0; y &lt; height; y += 50) {       // rows
+      ellipse(x, y, 30, 30);
+    }
+  }
+}</code></pre>
+
+<ul>
+  <li><strong>Outer loop:</strong> moves left → right (columns).</li>
+  <li><strong>Inner loop:</strong> moves top → bottom (rows).</li>
+  <li><strong>Total shapes drawn:</strong> (number of x-steps) × (number of y-steps).</li>
+</ul>
+
+<h3>Mini-lab: grids and patterns (Nested Loops)</h3>
+<p><strong>Note:</strong> All examples and mini-labs in this lesson can be done entirely inside <code>setup()</code>.</p>
+<ol>
+  <li>
+    <strong>Warm-up grid:</strong>
+    Make a grid of circles (or squares). Choose a spacing like <code>50</code>.
+    <br>
+    <em>Requirement:</em> use a nested <code>for</code> loop; the entire screen should be filled with a regular pattern.
+  </li>
+
+  <li>
+    <strong>Chessboard / checkerboard:</strong>
+    Turn your grid into a checkerboard using alternating colors.
+    <br><br>
+
+    <strong>Modulo note:</strong>
+    In grids, alternating patterns (like a checkerboard) are easiest when you compute
+    a row/column index and use <code>% 2</code> to switch between two choices.
+    <br><br>
+
+    <em>Hint:</em> use integer division + modulo to alternate tiles:
+    <pre><code>// if using step = 50:
+int col = x / step;
+int row = y / step;
+
+if ((col + row) % 2 == 0) fill(0);
+else fill(255);</code></pre>
+    Then draw <code>rect(x, y, step, step)</code>.
+  </li>
+
+  <li>
+    <strong>Offset pattern (visual upgrade):</strong>
+    Make every other row “shifted” by half a step.
+    <br>
+    <em>Hint:</em> if <code>row</code> is odd, add <code>step/2</code> to x when drawing circles.
+    <pre><code>float xShift = 0;
+if (row % 2 == 1) xShift = step/2.0;
+
+ellipse(x + xShift, y, 30, 30);</code></pre>
+  </li>
+
+  <li>
+    <strong>Creative extension (choose one):</strong>
+    <ul>
+      <li><strong>Gradient by row:</strong> make color depend on <code>row</code> (top lighter, bottom darker).</li>
+      <li><strong>Gradient by column:</strong> make size depend on <code>col</code> (left small, right large).</li>
+      <li><strong>Targets:</strong> in each grid cell, draw 3 concentric circles.</li>
+      <li><strong>Optional:</strong> highlight every other column using modulo <code>col % 2</code>.</li>
+    </ul>
+  </li>
+</ol>
+<p><strong>Check-in questions (answer in one sentence each):</strong></p>
+<ul>
+  <li>What does the outer loop control? What does the inner loop control?</li>
+  <li>How do you compute how many shapes are drawn total?</li>
+  <li>Where does modulo show up naturally in nested loops?</li>
+</ul>
+  <hr>
+
+<h2>Part III — Unknown Repetition (while)</h2>
+
+<p>
+  So far, our repetition has had <strong>predictable structure</strong>.
+</p>
+
+<ul>
+  <li><code>for</code> loops: “I know how many times.”</li>
+  <li>nested <code>for</code> loops: “I know how many rows and columns.”</li>
+</ul>
+
+<p>
+  In other words: we could plan the repetition <em>ahead of time</em>.
+</p>
+
+<p>
+  A <code>while</code> loop is for the opposite situation:
+  we repeat until the world changes — meaning we <strong>do not</strong> know in advance
+  how many repetitions will be needed.
+</p>
+
+<h3>The basic idea</h3>
+
+<pre><code>while (condition) {
+  // repeat this block
+}</code></pre>
+
+<p><strong>Three rules (non-negotiable):</strong></p>
+<ol>
+  <li>The condition is checked <strong>before</strong> each repetition.</li>
+  <li>Something inside the loop must change the situation.</li>
+  <li>If nothing changes, the loop may never end (infinite loop → freeze).</li>
+</ol>
+
+<h3>Connection to what you already know</h3>
+
+<p>
+  Compare:
+</p>
+<ul>
+  <li><strong><code>if</code></strong> checks a condition once.</li>
+  <li><strong><code>while</code></strong> keeps checking a condition repeatedly.</li>
+</ul>
+
+<h3>Warm-up (console first): countdown</h3>
+
+<pre><code>int n = 5;
+
+while (n &gt; 0) {
+  println(n);
+  n--;
+}</code></pre>
+
+<p><strong>Check:</strong> What makes it stop? What would happen if you removed <code>n--</code>?</p>
+
+<h3>Important warning: the “nothing changes” loop</h3>
+
+<pre><code>// WARNING: Do not run this (infinite loop)
+int n = 5;
+
+while (n &gt; 0) {
+  println(n);
+}</code></pre>
+
+<p>
+  The condition never becomes false, because <code>n</code> never changes.
+  The computer will keep going forever (or until it becomes unresponsive).
+</p>
+
+<h3>When <code>while</code> is actually better than <code>for</code></h3>
+
+<p>
+  Use <code>while</code> when you cannot predict the number of repetitions.
+  Example: keep generating random numbers until you hit a target.
+</p>
+
+<pre><code>int tries = 0;
+int number = -1;
+
+while (number != 7) {
+  number = int(random(10));  // 0..9
+  tries++;
+}
+
+println("It took " + tries + " tries to get 7.");</code></pre>
+
+<p>
+  Here, a <code>for</code> loop would feel wrong because we don't know how many tries are needed.
+  The stopping condition is the point.
+</p>
+
+<h3>Processing caution (very important)</h3>
+
+<p>
+  In Processing, <code>draw()</code> is supposed to run frame-by-frame.
+  A big <code>while</code> loop inside <code>draw()</code> can block frames and make the sketch freeze.
+</p>
+
+<ul>
+  <li><strong>Good use:</strong> <code>while</code> in <code>setup()</code> for one-time generation.</li>
+  <li><strong>Usually better:</strong> animation in <code>draw()</code> by updating variables a little each frame.</li>
+</ul>
+
+<h3>One-time generation in <code>setup()</code></h3>
+
+<pre><code>void setup() {
+  size(600, 400);
+  background(255);
+
+  int x = 0;
+
+  while (x &lt; width) {
+    line(x, 0, x, height);
+    x += 20;
+  }
+}</code></pre>
+
+<p>
+  This is fine because it runs once and stops.
+</p>
+
+<h3>The key bridge: <code>for</code> and <code>while</code> can be equivalent</h3>
+
+<p>
+  This <code>for</code> loop:
+</p>
+
+<pre><code>for (int i = 0; i &lt; 20; i++) {
+  println(i);
+}</code></pre>
+
+<p>
+  is equivalent to this <code>while</code> loop:
+</p>
+
+<pre><code>int i = 0;
+while (i &lt; 20) {
+  println(i);
+  i++;
+}</code></pre>
+
+<p>
+  The difference is responsibility:
+</p>
+<ul>
+  <li><code>for</code> gives you the counter setup, condition, and update “in one place.”</li>
+  <li><code>while</code> makes you do the setup and update explicitly.</li>
+</ul>
+
+<h2>Mini-lab: while loops (aligned with our loop drills)</h2>
+
+<p>
+  Goal: do the <em>same</em> kinds of tasks we already know, but using <code>while</code>.
+  This is about control flow, not new geometry.
+</p>
+
+<ol>
+  <li>
+    <strong>Translate concentric circles (<code>for</code> → <code>while</code>).</strong><br>
+    You already know the “exactly 20 circles” version with a counter. Rewrite it using <code>while</code>.<br><br>
+
+    <strong>You must:</strong>
+    <ul>
+      <li>Declare and initialize a counter.</li>
+      <li>Write a condition that guarantees exactly 20 iterations.</li>
+      <li>Update the counter inside the loop.</li>
+    </ul>
+  </li>
+
+  <li>
+    <strong>Translate zebra stripes (<code>for</code> → <code>while</code>).</strong><br>
+    Convert your zebra canvas (vertical or horizontal stripes across the screen) to <code>while</code>.<br><br>
+
+    <strong>Tips:</strong>
+    <ul>
+      <li>Start at <code>x = 0</code> (for vertical stripes) or <code>y = 0</code> (for horizontal stripes).</li>
+      <li>Continue while your position is still inside the canvas.</li>
+      <li>Increase your position by the stripe width each time.</li>
+      <li>To alternate colors, compute a stripe index (for example, <code>col = x / stripeW</code>) and use <code>col % 2</code>.</li>
+    </ul>
+  </li>
+
+  <li>
+    <strong>A true <code>while</code> situation (unknown repetition): random until target.</strong><br>
+    Keep generating random integers from 0..9 until you get your target number (for example, 7). Print how many tries it took.
+  </li>
+</ol>
+
+<p><strong>One-sentence reflection:</strong> Which of the three tasks above is the best reason to use <code>while</code>, and why?</p>
+
+
+
+<h3>Closing frame</h3>
+
+<ul>
+  <li><code>for</code> = “I know how many times.”</li>
+  <li><code>while</code> = “I don’t know how long; I stop when the condition changes.”</li>
+  <li>If your <code>while</code> freezes: ask “What changes inside the loop?”</li>
+</ul>
+</main>
+
+<div id="footer-placeholder"></div>
+
+<script>
+  fetch("assets/includes/footer.html")
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById("footer-placeholder").innerHTML = html;
+    })
+    .catch(err => console.error("Footer load failed:", err));
+</script>
+
+</body>
+</html>
