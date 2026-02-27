@@ -145,12 +145,18 @@ void moveSquare() {
     <ul>
       <li><strong>Parameter integrity rule:</strong> inside <code>mouseTooClose(...)</code>, you must use the parameter <code>x</code> in the computation.
         <br><span class="small">Do not directly use <code>sqX</code> inside this function.</span></li>
-      <li><strong>Call-site variation test:</strong> In <code>draw()</code>, you must call <code>mouseTooClose</code> twice and print both results:
+      <li><strong>Call-site variation + evidence test:</strong> In <code>draw()</code>, print <em>both</em> the boolean result and the underlying 1D distance value for two different x-values:
         <ul>
-          <li><code>mouseTooClose(sqX, fearRadius)</code></li>
-          <li><code>mouseTooClose(sqX + 30, fearRadius)</code></li>
+          <li>Test A: <code>xA = sqX</code></li>
+          <li>Test B: <code>xB = sqX + 30</code></li>
         </ul>
-        <span class="small">These two calls should not always behave identically.</span>
+        <p class="small" style="margin:6px 0 0;">
+          To make the two tests meaningfully different, set <code>fearRadius</code> to something in the range <code>15..25</code> (e.g. 20). Then, in <code>draw()</code> print:
+        </p>
+        <pre><code>// Example required debug output (you may format differently)
+println("A: d=" + abs(mouseX - xA) + " close=" + mouseTooClose(xA, fearRadius));
+println("B: d=" + abs(mouseX - xB) + " close=" + mouseTooClose(xB, fearRadius));</code></pre>
+        <span class="small">If your function is correct and uses its parameter, the printed distances will differ whenever <code>xA != xB</code>.</span>
       </li>
       <li><strong>One-sentence design comment:</strong> Write one sentence explaining why <code>mouseTooClose</code> returns a <code>boolean</code> instead of moving the square directly.</li>
     </ul>
