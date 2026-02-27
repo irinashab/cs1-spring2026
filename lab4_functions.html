@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title> Lab 4 — Functions: The Scared Square</title>
+  <style>
+    :root { --maxw: 980px; }
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.55;
+      margin: 0;
+      color: #111;
+      background: #fff;
+    }
+    header {
+      padding: 28px 16px 10px;
+      border-bottom: 1px solid #e6e6e6;
+    }
+    header .wrap, main { max-width: var(--maxw); margin: 0 auto; }
+    main { padding: 18px 16px 64px; }
+    h1 { margin: 0 0 6px; font-size: 2.0rem; }
+    .meta { margin: 0; color: #555; }
+    h2 { margin-top: 28px; font-size: 1.45rem; }
+    h3 { margin-top: 18px; font-size: 1.15rem; }
+    ul { margin-top: 8px; }
+    code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    pre {
+      background: #f6f8fa;
+      border: 1px solid #e6e6e6;
+      border-radius: 10px;
+      padding: 12px 14px;
+      overflow-x: auto;
+      margin: 10px 0 14px;
+    }
+    .callout {
+      border: 1px solid #e6e6e6;
+      border-left: 6px solid #333;
+      border-radius: 10px;
+      padding: 10px 12px;
+      background: #fbfbfb;
+      margin: 14px 0;
+    }
+    .callout.warn { border-left-color: #b00020; }
+    .small { font-size: 0.95rem; color: #444; }
+    hr { border: none; border-top: 1px solid #e6e6e6; margin: 26px 0; }
+    .checklist li { margin: 6px 0; }
+    .rubric {
+      border-collapse: collapse;
+      width: 100%;
+      max-width: 820px;
+      margin: 10px 0 0;
+    }
+    .rubric th, .rubric td {
+      border: 1px solid #e6e6e6;
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .rubric th { background: #fafafa; }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="wrap">
+    <h1>Lab 4 — Functions: The Scared Square</h1>
+    <p class="meta"> Focus: functions, parameters, return values, state, and refactoring.</p>
+  </div>
+</header>
+
+<main>
+
+  <div class="callout">
+    <p><strong>Story prompt:</strong> Once upon a time there lived a square who was afraid of a mouse…</p>
+    <p class="small">When the mouse gets too close, the square jumps away.<br>However, the square is polite and never leaves the canvas.</p>
+  </div>
+
+  <h2>Learning goals</h2>
+  <ul>
+    <li>Use functions for <strong>modularity</strong> (break code into named pieces).</li>
+    <li>Use <strong>parameters</strong> to make code reusable (no copy/paste blocks).</li>
+    <li>Use <strong>return values</strong> (especially <code>boolean</code>) to separate “checking” from “acting”.</li>
+    <li>Practice working with <strong>state</strong> (position variables that change over time).</li>
+  </ul>
+
+  <hr />
+
+  <h2>Part 1 — Concept questions (write answers as comments)</h2>
+  <p>At the top of your sketch, answer the following in comments:</p>
+  <ol>
+    <li><strong>What is a function signature in Processing?</strong>
+      <ul>
+        <li>Include: return type, function name, parameter list.</li>
+        <li>Give an example from <strong>your own code</strong> in this lab (not <code>ellipse()</code> etc.).</li>
+      </ul>
+    </li>
+    <li><strong>What is the difference between formal parameters and actual parameters?</strong>
+      <ul>
+        <li>Show this with two lines:
+          <ul>
+            <li>a function definition line (formal parameters)</li>
+            <li>a function call line (actual parameters)</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ol>
+
+  <hr />
+
+  <h2>Part 2 — The scared square (mandatory 1D fear)</h2>
+
+  <h3>Behavior</h3>
+  <ul class="checklist">
+    <li>The square has position variables (state), e.g. <code>sqX</code>, <code>sqY</code>.</li>
+    <li>The square is afraid of the mouse <strong>horizontally only</strong> (1D):
+      it compares its <code>x</code> to <code>mouseX</code> (ignore <code>mouseY</code>).</li>
+    <li>If the mouse gets too close (within a “fear radius”), the square moves left/right away from the mouse.</li>
+    <li>The square must remain completely inside the canvas at all times.</li>
+    <li>Movement should be <strong>small steps</strong> (smooth-ish), not a single teleport across the screen.</li>
+  </ul>
+
+  <h3>Required functions</h3>
+  <p>Your program must contain (at minimum) these user-defined functions:</p>
+
+  <pre><code>// 1) Draw function (void, with parameters)
+void drawSquare(float x, float y, float s) {
+  // draw the square at (x,y) with size s
+}
+
+// 2) Check function (returns boolean, with parameters)
+boolean mouseTooClose(float x, float fearRadius) {
+  // return true if mouse is within fearRadius of x (horizontally)
+}
+
+// 3) Movement function (void)
+void moveSquare() {
+  // update sqX (and optionally sqY) based on mouseTooClose(...)
+  // keep square inside canvas
+}</code></pre>
+
+  <div class="callout warn">
+    <p><strong> Understanding checks (mandatory):</strong></p>
+    <ul>
+      <li><strong>Parameter integrity rule:</strong> inside <code>mouseTooClose(...)</code>, you must use the parameter <code>x</code> in the computation.
+        <br><span class="small">Do not directly use <code>sqX</code> inside this function.</span></li>
+      <li><strong>Call-site variation test:</strong> In <code>draw()</code>, you must call <code>mouseTooClose</code> twice and print both results:
+        <ul>
+          <li><code>mouseTooClose(sqX, fearRadius)</code></li>
+          <li><code>mouseTooClose(sqX + 30, fearRadius)</code></li>
+        </ul>
+        <span class="small">These two calls should not always behave identically.</span>
+      </li>
+      <li><strong>One-sentence design comment:</strong> Write one sentence explaining why <code>mouseTooClose</code> returns a <code>boolean</code> instead of moving the square directly.</li>
+    </ul>
+  </div>
+
+  <h3>Suggested setup (starter state)</h3>
+  <pre><code>float sqX, sqY;
+float sqSize = 60;
+float fearRadius = 80;
+float step = 3;
+
+void setup() {
+  size(600, 400);
+  sqX = width/2 - sqSize/2;
+  sqY = height/2 - sqSize/2;
+}</code></pre>
+
+  <h3>Hints (allowed)</h3>
+  <ul>
+    <li>Use <code>abs(mouseX - x)</code> for 1D distance.</li>
+    <li>Use <code>constrain()</code> or boundary <code>if</code>-checks to keep the square inside:
+      <pre><code>sqX = constrain(sqX, 0, width - sqSize);</code></pre>
+    </li>
+    <li>To move away from the mouse:
+      <pre><code>if (mouseX &lt; sqX) sqX += step;
+else sqX -= step;</code></pre>
+      <span class="small">Or compare to the square’s center if you prefer.</span>
+    </li>
+  </ul>
+
+  <hr />
+
+  <h2>Part 3 — Optional challenge (2D fear, no distance formula required)</h2>
+  <p><strong>Extra credit:</strong> Make the square afraid in 2D (it can move diagonally away from the mouse).</p>
+  <p>You do <em>not</em> need the full distance formula. Use directional logic instead:</p>
+
+  <pre><code>// Direction away from mouse (sign-based)
+float dx = sqX - mouseX;
+float dy = sqY - mouseY;
+
+// Move a little in the sign direction
+if (dx &gt; 0) sqX += step;
+else sqX -= step;
+
+if (dy &gt; 0) sqY += step;
+else sqY -= step;
+
+// Keep inside canvas (both x and y)
+sqX = constrain(sqX, 0, width - sqSize);
+sqY = constrain(sqY, 0, height - sqSize);</code></pre>
+
+  <hr />
+
+  <h2>Part 4 — Refactor an earlier project using functions</h2>
+  <p>Pick one earlier project and rewrite it so your code is better organized.</p>
+  <ul class="checklist">
+    <li>Create <strong>at least 2 user-defined functions</strong> (not counting <code>setup()</code>/<code>draw()</code>).</li>
+    <li>Use <strong>at least one function with parameters</strong>.</li>
+    <li>Replace <strong>at least one repeated code block</strong> with a function call.</li>
+    <li>At the top of the file, add a short comment:
+      <br><em>“Refactor summary: what I changed and why.”</em>
+    </li>
+  </ul>
+
+  <hr />
+
+  <h2>Submission</h2>
+  <div class="callout">
+    <ol>
+      <li>Save all sketches (with their folders) in a folder named: <code>yourNameLab4</code></li>
+      <li>Compress (zip) that folder</li>
+      <li>Upload the ZIP</li>
+    </ol>
+  </div>
+
+ 
+
+</main>
+</body>
+</html>
