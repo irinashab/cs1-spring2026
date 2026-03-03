@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CS1 – Midterm Review Sheet</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header>
+    <h1>Midterm Review Sheet</h1>
+        
+    </header>
+ <main>
+<section>
+  <h2>CS1 Midterm Review Sheet</h2>
+  <p>Use this as a checklist. If you hesitate on any section, review that topic.</p>
+</section>
+
+<hr>
+
+<section>
+  <h3>1) Coordinates &amp; Drawing</h3>
+  <ul>
+    <li><code>width</code> and <code>height</code></li>
+    <li>Center: <code>(width/2, height/2)</code></li>
+    <li>Top-left corner: <code>(0,0)</code></li>
+    <li><code>rect(x,y,w,h)</code> uses <strong>top-left</strong> corner</li>
+    <li><code>ellipse(x,y,w,h)</code> uses <strong>center</strong></li>
+  </ul>
+  <p><strong>Common mistake:</strong> confusing the anchor point for rectangles vs ellipses.</p>
+</section>
+
+<section>
+  <h3>2) Conditionals</h3>
+  <ul>
+    <li><code>==</code> compares; <code>=</code> assigns</li>
+    <li><code>&gt;=</code>, <code>&lt;=</code>, <code>!=</code>, <code>&amp;&amp;</code>, <code>||</code></li>
+    <li>Double negation: <code>!(!x)</code> equals <code>x</code></li>
+  </ul>
+  <p><strong>Common mistake:</strong> using <code>=</code> inside a condition or not evaluating the condition first.</p>
+</section>
+
+<section>
+  <h3>3) Variables &amp; Types</h3>
+  <ul>
+    <li>Types: <code>int</code>, <code>float</code>, <code>boolean</code>, <code>String</code></li>
+    <li>camelCase naming</li>
+    <li>Updates: <code>x--</code>, <code>x -= 4</code>, <code>x += 3</code></li>
+    <li>Be able to draw a simple memory diagram</li>
+  </ul>
+  <p><strong>Common mistake:</strong> forgetting that assignment overwrites the old value.</p>
+</section>
+
+<section>
+  <h3>4) Scope</h3>
+  <ul>
+    <li>Global variables: declared outside functions, visible everywhere</li>
+    <li>Local variables: declared inside a block <code>{ }</code>, visible only there</li>
+    <li>A variable declared in <code>setup()</code> is not visible in <code>draw()</code></li>
+  </ul>
+  <p><strong>Be able to answer:</strong> Will it compile? If yes, what prints? If not, why?</p>
+</section>
+
+<section>
+  <h3>5) Loops</h3>
+  <p><strong>For loop template:</strong></p>
+  <pre><code class="language-java">for (initialization; condition; update) {
+  // body
+}</code></pre>
+  <p><strong>While loop template:</strong></p>
+  <pre><code class="language-java">while (condition) {
+  // body
+}</code></pre>
+  <ul>
+    <li>Write loops for even/odd ranges</li>
+    <li>Watch loop bounds (off-by-one)</li>
+    <li>Be alert for the accidental semicolon: <code>for(...);</code></li>
+  </ul>
+</section>
+
+<section>
+  <h3>6) Functions</h3>
+  <ul>
+    <li>Parameter vs argument</li>
+    <li>Return value and <code>return</code></li>
+    <li>Local variables inside a function</li>
+    <li>Describe a function in one sentence (“big picture”)</li>
+  </ul>
+</section>
+
+<section>
+  <h3>7) Arrays</h3>
+  <ul>
+    <li>Indexing starts at 0</li>
+    <li>Last valid index is <code>arr.length - 1</code></li>
+    <li><code>arr.length</code> is the size</li>
+    <li>Nested indexing: <code>arr[arr[4]]</code></li>
+  </ul>
+  <p><strong>Random element:</strong></p>
+  <pre><code class="language-java">arr[int(random(arr.length))]</code></pre>
+  <p><strong>Common mistake:</strong> going out of bounds.</p>
+</section>
+
+<section>
+  <h3>8) Random Numbers</h3>
+  <ul>
+    <li><code>random(n)</code> returns a float in <code>[0, n)</code></li>
+    <li>Die roll (1..12): <code>int(random(12)) + 1</code></li>
+  </ul>
+  <p><strong>Common mistake:</strong> forgetting <code>+ 1</code>.</p>
+</section>
+
+<section>
+  <h3>9) Compile-Time vs Run-Time Errors</h3>
+  <ul>
+    <li><strong>Compile-time:</strong> scope errors, missing semicolons, undefined variables</li>
+    <li><strong>Run-time:</strong> array index out of bounds, division by zero</li>
+  </ul>
+</section>
+
+<hr>
+
+<section>
+  <h3>How to know you’re ready</h3>
+  <ul>
+    <li>You can trace code without guessing.</li>
+    <li>You can draw memory diagrams clearly.</li>
+    <li>You can spot a <code>for(...);</code> bug instantly.</li>
+    <li>You can explain why code does or does not compile.</li>
+    <li>You can handle nested array indexing confidently.</li>
+  </ul>
+</section>
+</main>
+<div id="footer-placeholder"></div>
+
+<script>
+  fetch("assets/includes/footer.html")
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById("footer-placeholder").innerHTML = html;
+    })
+    .catch(err => console.error("Footer load failed:", err));
+</script>
+
+
+    </body>
+</html>

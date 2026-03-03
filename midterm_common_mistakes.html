@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CS1 – Midterm Common Mistakes</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header>
+    <h1>Most Common Mistakes</h1>
+        
+    </header>
+ <main>
+<section>
+  <h2>CS1 Midterm: Most Common Mistakes</h2>
+  <p>This is a quick self-check list. If you have made any of these mistakes before, practice until you can catch them immediately.</p>
+</section>
+
+<hr>
+
+<section>
+  <h3>Drawing / Coordinates</h3>
+  <ul>
+    <li>Mixing up <code>rect()</code> anchor (top-left) with <code>ellipse()</code> anchor (center).</li>
+    <li>Forgetting where <code>(0,0)</code> is (top-left corner).</li>
+    <li>Not stating what’s drawn vs what’s overwritten when the background redraws each frame.</li>
+  </ul>
+</section>
+
+<section>
+  <h3>Conditionals</h3>
+  <ul>
+    <li>Using <code>=</code> instead of <code>==</code>.</li>
+    <li>Describing both branches instead of the one that actually runs.</li>
+    <li>Not simplifying boolean expressions (especially double negation).</li>
+  </ul>
+</section>
+
+<section>
+  <h3>Variables / Updates</h3>
+  <ul>
+    <li>Forgetting that <code>a--</code> means “subtract 1”.</li>
+    <li>Forgetting that <code>a -= 4</code> means <code>a = a - 4</code>.</li>
+    <li>Thinking assignment “adds” instead of replacing the old value.</li>
+  </ul>
+</section>
+
+<section>
+  <h3>Scope / Compilation</h3>
+  <ul>
+    <li>Trying to use a variable declared in <code>setup()</code> inside <code>draw()</code>.</li>
+    <li>Answering “what prints” when the code actually does not compile.</li>
+    <li>Not using precise language: compile-time error vs run-time error.</li>
+  </ul>
+</section>
+
+<section>
+  <h3>Loops</h3>
+  <ul>
+    <li>Accidental semicolon: <code>for(...);</code> (loop does nothing; block runs once).</li>
+    <li>Off-by-one errors: using <code>&lt;=</code> when you need <code>&lt;</code>.</li>
+    <li>Wrong start/end values (especially for even/odd ranges).</li>
+  </ul>
+</section>
+
+<section>
+  <h3>Functions</h3>
+  <ul>
+    <li>Tracing without understanding what the function computes “in general.”</li>
+    <li>Confusing parameter (variable in the header) with argument (value passed in).</li>
+    <li>Forgetting that local variables inside a function disappear after the function returns.</li>
+  </ul>
+</section>
+
+<section>
+  <h3>Arrays</h3>
+  <ul>
+    <li>Using index <code>arr.length</code> (out of bounds) instead of <code>arr.length - 1</code>.</li>
+    <li>Confusing values with indices in nested indexing (e.g., <code>arr[arr[4]]</code>).</li>
+    <li>Forgetting that array indices start at 0.</li>
+  </ul>
+</section>
+
+<section>
+  <h3>Random</h3>
+  <ul>
+    <li>Forgetting that <code>random(n)</code> never reaches <code>n</code>.</li>
+    <li>Forgetting <code>+1</code> when simulating dice rolls.</li>
+  </ul>
+</section>
+
+<hr>
+
+<section>
+  <h3>Two instant checks before you finalize an answer</h3>
+  <ol>
+    <li><strong>Does it compile?</strong> (Scope, missing semicolons, undefined names.)</li>
+    <li><strong>Are indices safe?</strong> (Last valid index is <code>length - 1</code>.)</li>
+  </ol>
+</section>
+</main>
+<div id="footer-placeholder"></div>
+
+<script>
+  fetch("assets/includes/footer.html")
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById("footer-placeholder").innerHTML = html;
+    })
+    .catch(err => console.error("Footer load failed:", err));
+</script>
+
+
+    </body>
+</html>

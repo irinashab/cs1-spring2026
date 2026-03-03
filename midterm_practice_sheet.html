@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CS1 – Midterm Practice Sheet</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header>
+    <h1>Midterm Practice Sheet</h1>
+        
+    </header>
+ <main>
+<section>
+  <h2>CS1 Midterm Practice Sheet</h2>
+  <p>This practice sheet mirrors the structure and difficulty of the midterm.
+  You should be able to answer every question without running code.</p>
+</section>
+
+<hr>
+
+<section>
+  <h3>1) Drawing and Coordinate Reasoning</h3>
+  <p>a. What will this code draw? Be precise.</p>
+  <pre><code class="language-java">size(120,120);
+line(0,height/2,width,height/2);
+line(width/2,0,width/2,height);</code></pre>
+
+  <p>b. Describe exactly what appears on the screen.</p>
+  <pre><code class="language-java">void setup(){
+  size(200,200);
+}
+
+void draw(){
+  fill(255);
+  rect(0,0,width,height);
+  fill(0);
+  ellipse(width/2,height/2,100,100);
+}</code></pre>
+</section>
+
+<section>
+  <h3>2) Translate Into English</h3>
+  <pre><code class="language-java">int score = 85;
+
+if(score >= 90){
+  println("A");
+}else{
+  println("Not an A");
+}</code></pre>
+  <p>Is the condition true or false? What prints?</p>
+</section>
+
+<section>
+  <h3>3) Short Concept Questions</h3>
+  <ul>
+    <li>What is camelCase? Give an example.</li>
+    <li>What is the difference between <code>==</code> and <code>=</code>?</li>
+    <li>What does <code>x += 3;</code> mean?</li>
+    <li>What is a variable?</li>
+    <li>Why do we need different data types? Give two examples.</li>
+  </ul>
+</section>
+
+<section>
+  <h3>4) Write Code to Produce the Image</h3>
+  <ul>
+    <li>300x300 window</li>
+    <li>Blue background</li>
+    <li>White circle centered</li>
+    <li>Two small black circles as eyes</li>
+  </ul>
+</section>
+
+<section>
+  <h3>5) Randomness</h3>
+  <p>Write a line of code that simulates rolling an 8-sided die (values 1–8 inclusive).</p>
+</section>
+
+<section>
+  <h3>6) Boolean Logic</h3>
+  <pre><code class="language-java">boolean ready = false;
+println(!(!ready));</code></pre>
+  <p>What prints? Explain.</p>
+</section>
+
+<section>
+  <h3>7) Loops</h3>
+  <p>a. Write a <code>for</code> loop that prints all odd numbers from 5 to 21 (including 21).</p>
+  <p>b. Rewrite the same logic using a <code>while</code> loop.</p>
+</section>
+
+<section>
+  <h3>8) Scope and Variables</h3>
+  <p>a. What is variable scope?</p>
+
+  <p>b. Will this compile? If yes, what prints? Explain.</p>
+  <pre><code class="language-java">int x = 10;
+
+void setup(){
+  int y = 5;
+}
+
+void draw(){
+  println(x);
+  println(y);
+}</code></pre>
+
+  <p>c. What are the values of a and b? Draw a memory diagram.</p>
+  <pre><code class="language-java">int a = 5;
+a--;
+a -= 2;
+int b = a;</code></pre>
+</section>
+
+<section>
+  <h3>9) Functions</h3>
+  <pre><code class="language-java">int f(int n){
+  int total = 0;
+  for(int i = 0; i <= n; i++){
+    total += i;
+  }
+  return total;
+}</code></pre>
+  <p>What does the function return when n = 3? When n = 5? Describe in one sentence what it does.</p>
+
+  <pre><code class="language-java">boolean g(int n){
+  return n > 0;
+}</code></pre>
+  <p>What does it return when n = -2? When n = 7? What does it check?</p>
+</section>
+
+<section>
+  <h3>10) Arrays</h3>
+  <pre><code class="language-java">int[] nums = {3,6,9,12,15};</code></pre>
+  <ul>
+    <li>What does <code>nums[2]</code> print?</li>
+    <li>What does <code>nums[nums[0] / 3]</code> print?</li>
+    <li>What does <code>nums.length</code> return?</li>
+    <li>Write one line that prints a random element from the array.</li>
+  </ul>
+</section>
+
+<section>
+  <h3>11) Mouse Conditions</h3>
+  <ul>
+    <li>Write a condition that checks if the mouse is on the left half of the screen.</li>
+    <li>Write a condition that checks if the mouse is in the top-right quadrant.</li>
+  </ul>
+</section>
+
+<section>
+  <h3>12) Tricky Loop</h3>
+  <pre><code class="language-java">int i;
+for(i = 2; i < 6; i++);
+{
+  println(i);
+}</code></pre>
+  <p>What prints? Explain carefully.</p>
+</section>
+
+<section>
+  <h3>13) Challenging Array Tracing</h3>
+  <pre><code class="language-java">int[] arr = {2,4,6,8,10,12};
+println(arr[1]);
+println(arr[arr[0]/2]);
+println(arr[arr[2]/3]);</code></pre>
+
+  <p>Now add:</p>
+
+  <pre><code class="language-java">println(arr[arr[3]]);</code></pre>
+
+  <p>What happens?</p>
+</section>
+
+<hr>
+
+<section>
+  <h3>How to Use This Practice Sheet</h3>
+  <ul>
+    <li>Answer without running code.</li>
+    <li>Explain compile vs run-time errors clearly.</li>
+    <li>Draw memory diagrams where appropriate.</li>
+    <li>Check loop bounds and array indices carefully.</li>
+  </ul>
+</section>
+</main>
+<div id="footer-placeholder"></div>
+
+<script>
+  fetch("assets/includes/footer.html")
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById("footer-placeholder").innerHTML = html;
+    })
+    .catch(err => console.error("Footer load failed:", err));
+</script>
+
+
+    </body>
+</html>
