@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CS1 – Array Practice (Math/CS Majors)</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header>
+    <h1>Array Practice — Mandatory (Math/CS Majors)</h1>
+        
+    </header>
+ <main>
+<section>
+  
+  <p><em>Optional for everyone else — can be done for extra credit.</em></p>
+
+  <h3>Before you start (required personalization)</h3>
+  <p>At the top of <strong>every</strong> sketch for this assignment, include:</p>
+   <pre><code class="language-java">int d1 = int(random(0,10));   // choose a random digit 0–9
+int d2 = int(random(0,10));;   // choose a random digit 0–9
+</code></pre>
+  <p>Your initialization must use <code>d1</code> and <code>d2</code> in a visible way.</p>
+
+  <h3>Anti-AI / index-check rules (apply to all tasks)</h3>
+  <ul>
+    <li>Use an array and a loop exactly as required. If your solution does not use a loop where requested, it is incorrect.</li>
+    <li>Keep the required <code>println()</code> checks in each task. They help you (and me) verify indexing.</li>
+    <li>Do not delete or bypass the “index trap” lines/comments.</li>
+  </ul>
+</section>
+
+<hr>
+
+<section>
+  <h2>Task 1 — Squaring elements of an array</h2>
+  <p>Create an array of 10 integers. Square each element and store the result back into the same array.</p>
+
+  <h3>Starter skeleton (fill the TODOs)</h3>
+  <pre><code class="language-java">// Task 1 — Skeleton
+int d1 = int(random(0,10));
+int d2 =int d1 = int(random(0,10));
+
+int[] a = new int[10];
+
+void setup() {
+  // TODO: initialize the array using a loop.
+  // Requirement: a[0] must equal d1 and a[9] must equal d2.
+
+  // Required index check (do not remove)
+  println("BEFORE: first=" + a[0] + " last=" + a[a.length-1]);
+
+  // TODO: square each element IN PLACE using a loop.
+  // No second array allowed.
+
+  // Required index check (do not remove)
+  println("AFTER: first=" + a[0] + " last=" + a[a.length-1]);
+
+  // Index trap comment (required):
+  // "I used i &lt; a.length because --give your reasoning here"
+}</code></pre>
+</section>
+
+<hr>
+
+<section>
+  <h2>Task 2 — Summing consecutive elements</h2>
+  <p>Create an array of 10 integers. Replace each element (except the last one) with the sum of that element and the next one. Do not modify the last element.</p>
+
+  <h3>Starter skeleton (fill the TODOs)</h3>
+  <pre><code class="language-java">// Task 2 — Skeleton
+int d1 = int(random(0,10));
+int d2 =int d1 = int(random(0,10));
+
+int[] a = new int[10];
+
+void setup() {
+  // TODO: initialize with a simple pattern that depends on d1 or d2.
+
+  // Required index check (do not remove)
+  println("BEFORE: a[0]=" + a[0] + " a[1]=" + a[1] + " a[last]=" + a[a.length-1]);
+
+  // TODO: replace each element (except last) with a[i] + a[i+1].
+  // REQUIRED: do NOT touch the last element.
+  // REQUIRED: your loop must NOT crash (watch the loop bound).
+
+  // Required index check (do not remove)
+  println("AFTER:  a[0]=" + a[0] + " a[1]=" + a[1] + " a[last]=" + a[a.length-1]);
+
+  // Written answer (as a comment, required):
+  // Q: When you update left-to-right, can a[i+1] already contain a changed value?
+  // A: (1–2 sentences)
+}</code></pre>
+</section>
+
+<hr>
+
+<section>
+  <h2>Task 3 — Calculating a sum</h2>
+  <p>Create an array of 5 integers. Compute the sum of all elements. Then compute the sum of elements at even indices only.</p>
+
+  <h3>Starter skeleton (fill the TODOs)</h3>
+  <pre><code class="language-java">// Task 3 — Skeleton
+int d1 = int(random(0,10));
+int d2 =int d1 = int(random(0,10));
+
+int[] a = new int[5];
+
+void setup() {
+  // TODO: initialize the array using d1 and d2 somewhere.
+  // Requirement: a[0] must depend on d1, a[a.length-1] must depend on d2.
+
+  // Required index check (do not remove)
+  println("first=" + a[0] + " last=" + a[a.length-1]);
+
+  int sumAll = 0;
+  // TODO: compute sumAll using a loop
+
+  int sumEvenIndex = 0;
+  // TODO: compute sumEvenIndex using indices 0, 2, 4 only.
+  // REQUIRED: use i += 2 in your loop.
+
+  println("sumAll=" + sumAll);
+  println("sumEvenIndex=" + sumEvenIndex);
+
+  // Index trap comment (required):
+  // "Even indices are 0,2,4,... so I increment by 2."
+}</code></pre>
+</section>
+
+<hr>
+
+<section>
+  <h2>Task 4 — Working with colors</h2>
+  <p>Create an array of 50 random RGB colors. Use these colors to “paint” shapes of your choice.</p>
+
+  <h3>Starter skeleton (fill the TODOs)</h3>
+  <pre><code class="language-java">// Task 4 — Skeleton
+int d1 = int(random(0,10));
+int d2 =int d1 = int(random(0,10));
+
+color[] palette;
+
+void setup() {
+  size(800, 800);
+  noStroke();
+
+  palette = new color[50];
+
+  // TODO: fill palette with 50 random colors using a loop.
+  // REQUIRED: each color must use d1 and d2 somehow (keep it simple).
+
+  // Required index check (do not remove)
+  println("palette[0]=" + palette[0] + " palette[last]=" + palette[palette.length-1]);
+}
+
+void draw() {
+  background(0);
+
+  // TODO: draw EXACTLY 50 shapes.
+  // REQUIRED: shape i must use palette[i] (no random() in draw for color).
+  // REQUIRED: use a loop.
+
+  // Optional: call noLoop(); if your artwork is static.
+}</code></pre>
+</section>
+
+<hr>
+
+<section>
+  <h2>Submission</h2>
+  <ul>
+    <li>Each sketch must run without errors and must include the required prints and comments.</li>
+    <li>Place all sketch folders inside one parent folder, then compress (zip) that parent folder and submit the single .zip..</li>
+  </ul>
+</section>
+</main>
+<div id="footer-placeholder"></div>
+
+<script>
+  fetch("assets/includes/footer.html")
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById("footer-placeholder").innerHTML = html;
+    })
+    .catch(err => console.error("Footer load failed:", err));
+</script>
+
+
+    </body>
+</html>

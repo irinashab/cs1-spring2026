@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CS1 – Mini-Lab: Many Bouncing Balls (Arrays)</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header>
+    <h1>Mini-Lab: Many Bouncing Balls (Arrays)</h1>
+        
+    </header>
+ <main>
+<section>
+  
+
+  <h3>Purpose</h3>
+  <p>In this mini-lab, you will extend the classic bouncing ball sketch by using <strong>arrays</strong>.
+  Instead of animating just one ball, you will animate many. This is your first step toward managing
+  multiple moving objects efficiently.</p>
+
+  
+  <details>
+    <summary><strong>Reference: single bouncing ball sketch (given)</strong></summary>
+    <pre><code class="language-java">float xspeed, yspeed;
+float xpos, ypos, wdth, ht;
+
+void setup(){
+  size(1000, 1000);
+  background(0);
+
+  xpos = random(width);
+  ypos = random(height);
+  xspeed = random(3);
+  yspeed = random(3);
+
+  wdth = random(20);
+  ht = wdth;
+
+  noStroke();
+}
+
+void draw(){
+  background(0);
+  ellipse(xpos, ypos, wdth, ht);
+
+  xpos += xspeed;
+  ypos += yspeed;
+
+  if (xpos &gt;= width || xpos &lt;= 0){
+    xspeed *= -1;
+  }
+  if (ypos &gt;= height || ypos &lt;= 0){
+    yspeed *= -1;
+  }
+}</code></pre>
+  </details>
+</section>
+
+<hr>
+
+<section>
+  <h3>Instructions</h3>
+
+  <ol>
+    <li><strong>Set the number of balls.</strong> Start with:
+      <pre><code class="language-java">int n;// number of balls</code></pre>
+      This value determines the number of balls <em>and</em> the size of your arrays.
+    </li>
+
+    <li><strong>Replace single variables with arrays.</strong>
+      Every ball property (position, speed, size, etc.) becomes an array of length <code>n</code>.
+    </li>
+
+    <li><strong>Initialize all balls in <code>setup()</code>.</strong>
+      Use a <code>for</code>-loop so that each index <code>i</code> represents one ball.
+    </li>
+
+    <li><strong>Animate all balls in <code>draw()</code>.</strong>
+      Use a <code>for</code>-loop to draw, update, and bounce each ball.
+    </li>
+
+    <li><strong>Experiment with scalability.</strong>
+      Try <code>n = 100</code>, <code>1000</code>, <code>10000</code>, and beyond. Write 2–3 sentences:
+      <em>How many balls can your program handle smoothly on your computer?</em>
+    </li>
+  </ol>
+</section>
+
+<hr>
+
+<section>
+
+  <h3>Personalization (mandatory)</h3>
+  <p>At the top of your sketch, include:</p>
+  <pre><code class="language-java">int d1 = int(random(0,10));   // choose a random digit 0–9
+int d2 = int(random(0,10));;   // choose a random digit 0–9
+int n  = 10 + d1;</code></pre>
+
+  <p>Your initialization must use <code>d2</code> in a visible way (example: ball sizes depend on <code>d2</code>).</p>
+
+  <h4>Index checks (do not remove)</h4>
+  <p>In <code>setup()</code>, print endpoints so indexing mistakes surface immediately:</p>
+  <pre><code class="language-java">println("x0=" + xpos[0] + " xLast=" + xpos[n-1]);
+println("w0=" + wdth[0] + " wLast=" + wdth[n-1]);</code></pre>
+
+  <h4>Off-screen recovery trap (do not remove)</h4>
+  <p>After initialization, force ball 0 to start slightly off-screen:</p>
+  <pre><code class="language-java">xpos[0] = -5;</code></pre>
+  <p>Ball 0 must eventually appear and bounce normally.</p>
+
+  <h4>Bounce must respect ball size</h4>
+  <p>Your bounce logic must use each ball’s size (radius). Balls should not disappear halfway off-screen.</p>
+
+  <h4>Loop-bound comment (required)</h4>
+  <p>Above your main update loop, include this comment exactly:</p>
+  <pre><code class="language-java">// My loop uses i &lt; n because  - give your reasoning here.</code></pre>
+</section>
+
+<hr>
+
+<section>
+  <h3>Starter Skeleton (fill the TODOs — not a full solution)</h3>
+  <pre><code class="language-java">// Mini-Lab — Skeleton
+int d1 = __;
+int d2 = __;
+int n  = 10 + d1;
+
+// TODO: declare arrays for position, speed, and size (at least 5 arrays)
+// float[] xpos = new float[n]; etc.
+
+void setup() {
+  size(1000, 1000);
+  noStroke();
+
+  // TODO: initialize ALL balls using a loop.
+  // Requirements:
+  // - positions are random
+  // - speeds depend on index i (simple pattern)
+  // - sizes depend on d2 and i (visible pattern)
+
+  // Index checks (do not remove)
+  println("x0=" + xpos[0] + " xLast=" + xpos[n-1]);
+  println("w0=" + wdth[0] + " wLast=" + wdth[n-1]);
+
+  // Off-screen recovery trap (do not remove)
+  xpos[0] = -5;
+}
+
+void draw() {
+  background(0);
+
+  // TODO: loop through all balls:
+  // - draw ellipse
+  // - update position
+  // - bounce off edges USING radius
+  //
+  // Required comment:
+  // My loop uses i < n because - give your reasoning here
+}</code></pre>
+</section>
+
+<hr>
+
+<section>
+  <h3>Submission</h3>
+  <ul>
+    <li>Submit one sketch for this mini-lab.</li>
+    <li>Your sketch must run without errors and include the required prints and traps.</li>
+    <li>Include your 2–3 sentence scalability observation (as a comment in the sketch).</li>
+  </ul>
+</section>
+</main>
+<div id="footer-placeholder"></div>
+
+<script>
+  fetch("assets/includes/footer.html")
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById("footer-placeholder").innerHTML = html;
+    })
+    .catch(err => console.error("Footer load failed:", err));
+</script>
+
+
+    </body>
+</html>
