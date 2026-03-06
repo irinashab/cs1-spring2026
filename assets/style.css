@@ -251,3 +251,56 @@ footer {
   font-size: 0.9em;
   color: #666;
 }
+/* Live format validation (while typing) */
+main .exercise input.format-bad {
+  border: 3px solid #ff0000 !important;
+  background: rgba(255, 0, 0, 0.15) !important;
+  box-shadow: 0 0 6px rgba(255, 0, 0, 0.6) !important;
+}
+main .exercise input.format-ok {
+  border: 3px solid #00b050 !important;
+  background: rgba(0, 176, 80, 0.12) !important;
+  box-shadow: 0 0 6px rgba(0, 176, 80, 0.5) !important;
+}
+/* Hint button highlight when format is wrong */
+main .exercise button.hint-glow {
+  background: #ff9800 !important;
+  box-shadow: 0 0 8px rgba(255, 152, 0, 0.9);
+  transform: scale(1.05);
+}
+.binary-grid{
+display:grid;
+grid-template-columns:repeat(6,60px);
+text-align:center;
+font-family:monospace;
+}
+
+.binary-grid div{
+border:1px solid #444;
+padding:8px;
+}
+.binary-grid{
+  display:grid;
+  grid-template-columns: repeat(6, 70px);
+  justify-content:center;
+  margin:20px 0;
+  font-family:monospace;
+}
+
+.binary-grid div{
+  border:2px solid #444;
+  padding:10px;
+  text-align:center;
+  font-size:18px;
+  background:#fafafa;
+}
+
+.binary-grid .bit{
+  font-weight:bold;
+  background:#eef3ff;
+}
+
+.grid-caption{
+  text-align:center;
+  font-family:monospace;
+}

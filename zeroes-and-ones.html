@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CS1 – Zeroes and Ones</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header>
+  <h1>Zeroes and Ones</h1>
+  <p class="subtitle">Understanding the Binary Number System</p>
+</header>
+
+<main>
+  <div class="container">
+
+    <div class="content-card">
+      <h2>The Origins of Number Systems</h2>
+      <p>Our amazing computer age started with a simple idea whose origins date back to ancient Babylon and Egypt. The Babylonians developed the first positional number system using the rather large base of 60. Our numbers are based on the same idea but employ the smaller base ten.</p>
+      <div class="math-example">
+        <p>In base 10 the number 453.25 means:</p>
+        <p>453.25 = 4 × <span class="highlight"><strong>100</strong></span> + 5 × <span class="highlight"><strong>10</strong></span> + 3 × <span class="highlight"><strong>1</strong></span> + 2 × <span class="highlight"><strong>(1/10)</strong></span> + 5 × <span class="highlight"><strong>(1/100)</strong></span></p>
+      </div>
+      <p>Notice that all the numbers in bold are powers of 10. They get larger by a factor of 10 as we move to the left, or, alternatively, get smaller by a factor of 10 as we move to the right. This approach enables us to write any number, no matter how large or how small, using just 10 digits. It also allows us to add, subtract, multiply, and divide numbers with relative ease.</p>
+      <p>In base 10 we use powers of 10. In base 2 we will use powers of 2.</p>
+    </div>
+
+    <div class="content-card">
+      <h2>Egyptian Multiplication</h2>
+      <p>Egyptian priests developed a clever multiplication algorithm that involved doubling. They expressed the smaller number as a sum of powers of two, that is 1, 2, 4, 8, 16, and so on.</p>
+      <div class="math-example">
+        <p>Example: 7 × 13</p>
+        <p>7 = 1 + 2 + 4</p>
+        <p>7 × 13 = (1 + 2 + 4) × 13 = 1 × 13 + 2 × 13 + 4 × 13 = 13 + 26 + 52 = 91</p>
+      </div>
+      <p>The Egyptians were unknowingly using the binary structure of numbers. Any positive integer can be written as a sum of distinct powers of two. This idea is exactly what the binary system formalizes.</p>
+      <table class="binary-table">
+        <tbody>
+          <tr>
+            <th>Decimal Number</th>
+            <th>Powers of 2</th>
+            <th>Sum</th>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>4 + 1</td>
+            <td>2² + 2⁰</td>
+          </tr>
+          <tr>
+            <td>13</td>
+            <td>8 + 4 + 1</td>
+            <td>2³ + 2² + 2⁰</td>
+          </tr>
+          <tr>
+            <td>20</td>
+            <td>16 + 4</td>
+            <td>2⁴ + 2²</td>
+          </tr>
+          <tr>
+            <td>37</td>
+            <td>32 + 4 + 1</td>
+            <td>2⁵ + 2² + 2⁰</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Some powers of two are skipped. In binary representation each power of two is used <span class="highlight">at most once</span>, which corresponds to writing digits 0 or 1.</p>
+      <p>In fact, every positive integer can be written <span class="highlight">uniquely</span> as a sum of distinct powers of two. That is why each whole number has exactly one binary representation.</p>
+    </div>
+
+    <div class="content-card">
+      <h2>Powers of Two</h2>
+      <p>Before we study binary numbers, it helps to know the first few powers of two.</p>
+      <table class="binary-table">
+        <tbody>
+          <tr>
+            <th>Power</th>
+            <th>Value</th>
+            <th>Power</th>
+            <th>Value</th>
+          </tr>
+          <tr>
+            <td>2⁰</td><td>1</td>
+            <td>2⁴</td><td>16</td>
+          </tr>
+          <tr>
+            <td>2¹</td><td>2</td>
+            <td>2⁵</td><td>32</td>
+          </tr>
+          <tr>
+            <td>2²</td><td>4</td>
+            <td>2⁶</td><td>64</td>
+          </tr>
+          <tr>
+            <td>2³</td><td>8</td>
+            <td>2⁷</td><td>128</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>A binary number simply tells us <span class="highlight">which powers of two we use to build a number</span>.</p>
+    </div>
+
+    <div class="content-card">
+      <h2>The Binary System</h2>
+      <p>This extraordinary fact prompted people to use two as a base of a number system. It is called the <span class="highlight">binary</span> system. To express any number, we only need ones and zeros. We place them in columns whose place values are powers of two, just as in our <span class="highlight">decimal</span> (base 10) number system we use powers of 10.</p>
+      <div class="math-example">
+        <p>Example: 110010 in binary means:</p>
+        <p>1 × 32 + 1 × 16 + 0 × 8 + 0 × 4 + 1 × 2 + 0 × 1 = 32 + 16 + 2 = 50</p>
+      </div>
+      <p>The fact that there are only two digits makes binary arithmetic suitable for computers. A circuit has exactly two states: it is either on or off. Computers recognize <span class="highlight">on</span> as 1 and <span class="highlight">off</span> as 0.</p>
+    </div>
+
+    <div class="content-card">
+      <h2>Counting in Binary</h2>
+      <p>Just as decimal counting goes 8, 9, 10, binary counting goes 0, 1, 10, 11, 100, and so on.</p>
+      <table class="binary-table">
+        <tbody>
+          <tr>
+            <th>Decimal</th>
+            <th>Binary</th>
+          </tr>
+          <tr><td>0</td><td>0</td></tr>
+          <tr><td>1</td><td>1</td></tr>
+          <tr><td>2</td><td>10</td></tr>
+          <tr><td>3</td><td>11</td></tr>
+          <tr><td>4</td><td>100</td></tr>
+          <tr><td>5</td><td>101</td></tr>
+          <tr><td>6</td><td>110</td></tr>
+          <tr><td>7</td><td>111</td></tr>
+          <tr><td>8</td><td>1000</td></tr>
+        </tbody>
+      </table>
+      <p>Notice what happens when we add 1 to 111: all the 1s turn into 0s, and a new 1 appears on the left. This is the binary version of carrying.</p>
+    </div>
+
+    <div class="content-card">
+      <h2>Converting Binary to Decimal</h2>
+      <p>To convert a binary number to decimal, multiply each digit by its place value (power of 2) and sum the results.</p>
+      <div class="conversion-steps">
+        <h3>Example: Convert 110110 to decimal</h3>
+        <p>Place values from right to left: 2⁰, 2¹, 2², 2³, 2⁴, 2⁵</p>
+        <div class="math-example">
+          <p>1 × 2⁵ + 1 × 2⁴ + 0 × 2³ + 1 × 2² + 1 × 2¹ + 0 × 2⁰</p>
+          <p>= 1 × 32 + 1 × 16 + 0 × 8 + 1 × 4 + 1 × 2 + 0 × 1</p>
+          <p>= 32 + 16 + 0 + 4 + 2 + 0 = 54</p>
+        </div>
+        <p>So, 110110 in binary is 54 in decimal.</p>
+      </div>
+
+      <h3>Quick Visual</h3>
+
+<div class="binary-grid">
+  <div>32</div><div>16</div><div>8</div><div>4</div><div>2</div><div>1</div>
+  <div class="bit">1</div><div class="bit">0</div><div class="bit">1</div><div class="bit">0</div><div class="bit">1</div><div class="bit">1</div>
+</div>
+
+<p class="grid-caption">
+1×32 + 0×16 + 1×8 + 0×4 + 1×2 + 1×1 = 43
+</p>
+
+    <div class="content-card">
+      <h2>Converting Decimal to Binary</h2>
+      <p>One standard method is to divide by two repeatedly until the quotient becomes 0.</p>
+      <div class="conversion-steps">
+        <h3>Example: Convert 43 to binary by repeated division</h3>
+        <div class="step">
+          <div class="step-number">1</div>
+          <div>43 ÷ 2 = 21 remainder <span class="highlight">1</span></div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div>21 ÷ 2 = 10 remainder <span class="highlight">1</span></div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div>10 ÷ 2 = 5 remainder <span class="highlight">0</span></div>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <div>5 ÷ 2 = 2 remainder <span class="highlight">1</span></div>
+        </div>
+        <div class="step">
+          <div class="step-number">5</div>
+          <div>2 ÷ 2 = 1 remainder <span class="highlight">0</span></div>
+        </div>
+        <div class="step">
+          <div class="step-number">6</div>
+          <div>1 ÷ 2 = 0 remainder <span class="highlight">1</span></div>
+        </div>
+        <p><strong>Result:</strong> Reading the remainders from bottom to top: 101011</p>
+      </div>
+
+      <div class="conversion-steps">
+        <h3>Another useful method: largest powers of two</h3>
+        <p>Many people find it easier to build a number out of powers of two.</p>
+        <div class="math-example">
+          <p>43 = 32 + 8 + 2 + 1</p>
+          <p>So the places for 32, 8, 2, and 1 get a 1, and the others get a 0.</p>
+          <p>Therefore, 43 = 101011₂</p>
+        </div>
+        <p>This method connects directly to the Egyptian doubling idea from earlier in the lesson.</p>
+      </div>
+    </div>
+
+    <div class="content-card">
+      <h2>Binary Addition</h2>
+      <p>Binary addition follows simple rules:</p>
+      <div class="math-example">
+        <p>0 + 0 = 0</p>
+        <p>1 + 0 = 1</p>
+        <p>0 + 1 = 1</p>
+        <p>1 + 1 = 10 (0 with a carry of 1)</p>
+      </div>
+      <p>This is just like decimal addition where 9 + 1 = 10. In both systems, when we run out of digits in one place, we carry to the next place.</p>
+      <h3>Example: Add 110 and 101</h3>
+      <div class="math-example">
+        <p style="font-family: monospace; text-align: right;">&nbsp;&nbsp;110<br>+ 101<br>-----<br>1011</p>
+      </div>
+      <p>Explanation:</p>
+      <ul>
+        <li>Ones column: 0 + 1 = 1</li>
+        <li>Twos column: 1 + 0 = 1</li>
+        <li>Fours column: 1 + 1 = 10, so we write 0 and carry 1</li>
+        <li>Eights column: the carry gives us 1</li>
+      </ul>
+      <p>Result: 1011 in binary, which is 11 in decimal.</p>
+    </div>
+
+    <div class="content-card">
+      <h2>Bits and Bytes</h2>
+      <p>A binary digit is called a <span class="highlight">bit</span>.</p>
+      <div class="math-example">
+        <p>bit = binary digit</p>
+        <p>8 bits = 1 byte</p>
+      </div>
+      <p>With 8 bits, the smallest number is 00000000₂ = 0 and the largest number is 11111111₂ = 255.</p>
+      <p>This is why in many computing contexts, such as colors, values often range from 0 to 255.</p>
+    </div>
+
+    <div class="practice-problems">
+      <h2>Practice Problems</h2>
+      <div class="problem">
+        <h3>1. Convert binary numbers to decimal:</h3>
+        <p>a) 10111</p>
+        <p>b) 10000001</p>
+        <p>c) 11011</p>
+      </div>
+      <div class="problem">
+        <h3>2. Convert decimal numbers to binary:</h3>
+        <p>a) 26</p>
+        <p>b) 12</p>
+        <p>c) 53</p>
+      </div>
+      <div class="problem">
+        <h3>3. Perform binary addition:</h3>
+        <p>a) 10 + 1 =</p>
+        <p>b) 11 + 1 =</p>
+        <p>c) Keep adding a 1 to each previous result until you get 1111</p>
+      </div>
+      <div class="problem">
+        <h3>4. Challenge questions:</h3>
+        <p>a) What happens when you add 1 to 1111?</p>
+        <p>b) What is the largest number you can write using 6 bits?</p>
+        <p>c) Write 45 as a sum of powers of two, then convert it to binary.</p>
+      </div>
+      <p>For more guided work and immediate feedback, use the Binary Conversion Practice Page.</p>
+    </div>
+
+  </div>
+</main>
+
+<div id="footer-placeholder"></div>
+
+<script>
+  fetch("assets/includes/footer.html")
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById("footer-placeholder").innerHTML = html;
+    })
+    .catch(err => console.error("Footer load failed:", err));
+</script>
+</body>
+</html>

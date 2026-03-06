@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zeroes and Ones - The Binary System</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f7fa;
+            padding: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 0;
+            background: linear-gradient(135deg, #2c3e50, #4a6491);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+        
+        .content-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .content-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eaeaea;
+        }
+        
+        h3 {
+            color: #3498db;
+            margin: 20px 0 10px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        .math-example {
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .binary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .binary-table th, .binary-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        .binary-table th {
+            background-color: #2c3e50;
+            color: white;
+        }
+        
+        .binary-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        .conversion-steps {
+            background-color: #e8f4f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .step {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .step-number {
+            background-color: #3498db;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .practice-problems {
+            background-color: #e8f6f3;
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        
+        .problem {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #bdc3c7;
+        }
+        
+        .problem:last-child {
+            border-bottom: none;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        .highlight {
+            background-color: #fff9c4;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .content-card {
+                padding: 15px;
+            }
+        }
+    </style>
+</head><body><header>
+<h1>Zeroes and Ones</h1>
+<p class="subtitle">Understanding the Binary Number System</p>
+</header>
+<div class="container">
+<div class="content-card">
+<h2>The Origins of Number Systems</h2>
+<p>Our amazing computer age started with a simple idea whose origins date back to ancient Babylon and Egypt. The Babylonians developed the first positional number system using the rather large base of 60. Our numbers are based on the same idea but employ the smaller base - ten.</p>
+<div class="math-example">
+<p>In base 10 the number 453.25 means:</p>
+<p>453.25 = 4 × <span class="highlight">100</span> + 5 × <span class="highlight">10</span> + 3 × <span class="highlight">1</span> + 2 × <span class="highlight">(1/10)</span> + 5 × <span class="highlight">(1/100)</span></p>
+</div>
+<p>Notice that all the numbers in bold are powers of 10. They get larger by a factor of 10 as we move to the left, or, alternatively, get smaller by a factor of 10 as we move to the right. This approach enables us to write any number, no matter how large or how small, using just 10 digits. It also allows us to add, subtract, multiply, and divide numbers with relative ease. We can borrow and carry using these four operations.</p>
+</div>
+<div class="content-card">
+<h2>Egyptian Multiplication</h2>
+<p>Egyptian priests developed a clever multiplication algorithm that involved doubling. They expressed the smaller number as a sum of powers of two, that is 1, 2, 4, 8, 16, and so on.</p>
+<div class="math-example">
+<p>Example: 7 × 13</p>
+<p>7 = 1 + 2 + 4</p>
+<p>7 × 13 = (1 + 2 + 4) × 13 = 1 × 13 + 2 × 13 + 4 × 13 = 13 + 26 + 52 = 91</p>
+</div>
+<p>The Egyptians figured out that any number can be written as a sum of powers of two:</p>
+<table class="binary-table">
+<tbody>
+<tr>
+<th>Decimal Number</th>
+<th>Powers of 2</th>
+<th>Sum</th>
+</tr>
+<tr>
+<td>5</td>
+<td>4 + 1</td>
+<td>2² + 2⁰</td>
+</tr>
+<tr>
+<td>13</td>
+<td>8 + 4 + 1</td>
+<td>2³ + 2² + 2⁰</td>
+</tr>
+<tr>
+<td>20</td>
+<td>16 + 4</td>
+<td>2⁴ + 2²</td>
+</tr>
+<tr>
+<td>37</td>
+<td>32 + 4 + 1</td>
+<td>2⁵ + 2² + 2⁰</td>
+</tr>
+</tbody>
+</table>
+<p>Notice that some powers of two are skipped, but they are never multiplied (unlike in our base 10 system, where 35 = 3 × 10 + 5 × 1).</p>
+</div>
+<div class="content-card">
+<h2>The Binary System</h2>
+<p>This extraordinary fact prompted people to use two as a base of a number system. It is called the <span class="highlight">binary</span> system. To express any number, we only need ones and zeros! We place them in the columns whose place values are the powers of two, just as we did in our <span class="highlight">decimal</span> (base 10) number system.</p>
+<div class="math-example">
+<p>Example: 110010 in binary means:</p>
+<p>1 × 32 + 1 × 16 + 0 × 8 + 0 × 4 + 1 × 2 + 0 × 1 = 32 + 16 + 2 = 50</p>
+</div>
+<p>The fact that there are only two digits makes binary arithmetic suitable for computers. A circuit has exactly two states: it is either on or off. Computers recognize <span class="highlight">on</span> as 1 and <span class="highlight">off</span> as 0.</p>
+</div>
+<div class="content-card">
+<h2>Converting Decimal to Binary</h2>
+<p>To convert a number to binary we divide by two repeatedly until we obtain a quotient of 0.</p>
+<div class="conversion-steps">
+<h3>Example: Convert 43 to binary</h3>
+<div class="step">
+<div class="step-number">1</div>
+<div>43 ÷ 2 = 21 remainder <span class="highlight">1</span></div>
+</div>
+<div class="step">
+<div class="step-number">2</div>
+<div>21 ÷ 2 = 10 remainder <span class="highlight">1</span></div>
+</div>
+<div class="step">
+<div class="step-number">3</div>
+<div>10 ÷ 2 = 5 remainder <span class="highlight">0</span></div>
+</div>
+<div class="step">
+<div class="step-number">4</div>
+<div>5 ÷ 2 = 2 remainder <span class="highlight">1</span></div>
+</div>
+<div class="step">
+<div class="step-number">5</div>
+<div>2 ÷ 2 = 1 remainder <span class="highlight">0</span></div>
+</div>
+<div class="step">
+<div class="step-number">6</div>
+<div>1 ÷ 2 = 0 remainder <span class="highlight">1</span></div>
+</div>
+<p><strong>Result:</strong> Reading the remainders from bottom to top: 101011</p>
+<p>So, 43 in decimal is 101011 in binary.</p>
+</div>
+</div>
+<div class="content-card">
+<h2>Converting Binary to Decimal</h2>
+<p>To convert a binary number to decimal, we multiply each digit by its place value (power of 2) and sum the results.</p>
+<div class="conversion-steps">
+<h3>Example: Convert 110110 to decimal</h3>
+<p>Place values from right to left: 2⁰, 2¹, 2², 2³, 2⁴, 2⁵</p>
+<div class="math-example">
+<p>1 × 2⁵ + 1 × 2⁴ + 0 × 2³ + 1 × 2² + 1 × 2¹ + 0 × 2⁰</p>
+<p>= 1 × 32 + 1 × 16 + 0 × 8 + 1 × 4 + 1 × 2 + 0 × 1</p>
+<p>= 32 + 16 + 0 + 4 + 2 + 0 = 54</p>
+</div>
+<p>So, 110110 in binary is 54 in decimal.</p>
+</div>
+</div>
+<div class="content-card">
+<h2>Binary Addition</h2>
+<p>Binary addition follows simple rules:</p>
+<div class="math-example">
+<p>0 + 0 = 0</p>
+<p>1 + 0 = 1</p>
+<p>0 + 1 = 1</p>
+<p>1 + 1 = 10 (0 with a carry of 1)</p>
+</div>
+<h3>Example: Add 110 and 101</h3>
+<div class="math-example">
+<p style="font-family: monospace; text-align: right;">1 1 0 (carry)<br>&nbsp;&nbsp;1 1 0<br>+ &nbsp;1 0 1<br>--------<br>1 0 1 1</p>
+</div>
+<p>Explanation:</p>
+<ul>
+<li>Ones column: 0 + 1 = 1</li>
+<li>Twos column: 1 + 0 = 1</li>
+<li>Fours column: 1 + 1 = 10 (write 0, carry 1 to eights column)</li>
+<li>Eights column: 1 (carry) = 1</li>
+</ul>
+<p>Result: 1011 in binary (which is 11 in decimal)</p>
+</div>
+<div class="practice-problems">
+<h2>Practice Problems</h2>
+<div class="problem">
+<h3>1. Convert binary numbers to decimal:</h3>
+<p>a) 10111</p>
+<p>b) 10000001</p>
+<p>c) 11011</p>
+</div>
+<div class="problem">
+<h3>2. Convert decimal numbers to binary:</h3>
+<p>a) 26</p>
+<p>b) 12</p>
+<p>c) 53</p>
+</div>
+<div class="problem">
+<h3>3. Perform binary addition:</h3>
+<p>a) 10 + 1 =</p>
+<p>b) 11 + 1 =</p>
+<p>c) Keep adding a 1 to each previous result until you get 1111</p>
+</div>
+</div>
+</div>
+<footer>
+<p>Binary Number System - Foundation of Modern Computing</p>
+<p>Based on historical development from Babylonian and Egyptian mathematics</p>
+</footer></body></html>
