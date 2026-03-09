@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Midterm Preps Hub</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body>
+
+<header>
+<h1>Midterm Preps Hub</h1>
+</header>
+
+<main>
+
+<p>The midterm exam will take place on Friday, March 13 during our regular class time.</p>
+
+<p><strong>Exam format and rules:</strong></p>
+
+<ul>
+<li>Paper and pencil exam</li>
+<li>Closed notes and closed books</li>
+<li>No computers, phones, or electronic gadgets allowed</li>
+</ul>
+
+<hr>
+
+<h3>Midterm Preparation Materials</h3>
+
+<ul>
+<li><a href="https://irinashab.github.io/cs1-spring2026/midterm_review_sheet.html" target="_blank" rel="noopener noreferrer">Midterm Review Sheet</a></li>
+
+<li><a href="https://irinashab.github.io/cs1-spring2026/midterm_practice_sheet.html" target="_blank" rel="noopener noreferrer">Midterm Practice Sheet</a></li>
+
+<li><a href="https://irinashab.github.io/cs1-spring2026/midterm_common_mistakes.html" target="_blank" rel="noopener noreferrer">Midterm: Most Common Mistakes</a></li>
+</ul>
+
+</main>
+
+<div id="footer-placeholder"></div>
+
+<script>
+fetch("assets/includes/footer.html")
+.then(response => response.text())
+.then(html => {
+document.getElementById("footer-placeholder").innerHTML = html;
+})
+.catch(err => console.error("Footer load failed:", err));
+</script>
+
+</body>
+</html>
