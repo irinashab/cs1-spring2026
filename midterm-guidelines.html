@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CS1 – Midterm Project </title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header>
+    <h1>Midterm Project</h1>
+        
+    </header>
+ <main>
+ <section>
+  <h2>Midterm Project Guidelines</h2>
+
+  <p>
+    You may build on your previous work or start a completely new project.
+    Your program must include <strong>variables, functions, and arrays and/or loops</strong>.
+    You are encouraged to enhance your program with <strong>images, fonts, sound, or video</strong>
+    if they improve the overall experience.
+  </p>
+
+  <h3>Grading Criteria</h3>
+
+  <h4>1. Code</h4>
+  <ul>
+    <li>Use <strong>clear and meaningful names</strong> for variables and functions.</li>
+    <li>Write code that is <strong>organized, efficient, and well commented</strong>.</li>
+    <li>Use <strong>functions and loops</strong> instead of repeating code.</li>
+    <li>Use <strong>arrays</strong> when they are helpful.</li>
+    <li>Your program must <strong>compile and run correctly</strong>.</li>
+    <li>Avoid hard-coding numbers when possible; use <strong>variables</strong> and <strong>screen dimensions</strong>.</li>
+  </ul>
+
+  <h4>2. Idea / Short Write-Up</h4>
+  <p>
+    Submit a short write-up (<strong>1–2 paragraphs</strong>) describing your project.
+  </p>
+  <ul>
+    <li>Explain <strong>what your program does</strong>.</li>
+    <li>Describe <strong>how you approached building it</strong>.</li>
+    <li>Mention any <strong>challenges</strong> you encountered.</li>
+    <li>Explain <strong>how you solved</strong> those challenges.</li>
+  </ul>
+  <p>
+    Your project must be <strong>original work</strong>.
+  </p>
+
+  <h4>3. Functionality &amp; Design</h4>
+  <ul>
+    <li>Your program should be <strong>easy to understand and easy to use</strong>.</li>
+    <li>Follow the <strong>K.I.S.S. principle</strong> (Keep It Simple, Stupid).</li>
+    <li>The interface should be clear and easy to navigate.</li>
+    <li>Thoughtful use of <strong>colors, fonts, images, or sound</strong> can improve the user experience.</li>
+  </ul>
+</section>
+ 
+  </main>
+<div id="footer-placeholder"></div>
+
+<script>
+  fetch("assets/includes/footer.html")
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById("footer-placeholder").innerHTML = html;
+    })
+    .catch(err => console.error("Footer load failed:", err));
+</script>
+
+
+    </body>
+</html>
