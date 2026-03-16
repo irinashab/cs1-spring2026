@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Timers in Processing</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body>
+
+<main>
+
+<section>
+<h2>Timers in Processing</h2>
+
+<p>
+Many interactive sketches need to measure time. For example:
+</p>
+
+<ul>
+<li>Spawn an enemy every few seconds</li>
+<li>Display a message for a short time</li>
+<li>Delay an animation</li>
+<li>Make objects appear or disappear</li>
+</ul>
+
+<p>
+Processing provides two simple ways to measure time:
+</p>
+
+<ul>
+<li><strong>frameCount</strong> – counts frames</li>
+<li><strong>millis()</strong> – counts milliseconds since the sketch started</li>
+</ul>
+
+</section>
+
+
+<section>
+
+<h2>Timer using <code>frameCount</code></h2>
+
+<p>
+The variable <code>frameCount</code> increases by 1 every time the screen updates.
+</p>
+
+<p>
+If your sketch runs at about <strong>60 frames per second</strong>:
+</p>
+
+<ul>
+<li>60 frames ≈ 1 second</li>
+<li>120 frames ≈ 2 seconds</li>
+<li>300 frames ≈ 5 seconds</li>
+</ul>
+
+<h3>Example</h3>
+
+<p>Display a circle after about 2 seconds.</p>
+
+<pre><code>
+void setup(){
+  size(400,400);
+}
+
+void draw(){
+
+  background(240);
+
+  if(frameCount > 120){
+    ellipse(200,200,80,80);
+  }
+
+}
+</code></pre>
+
+<p>
+After roughly 120 frames the circle appears.
+</p>
+
+</section>
+
+
+<section>
+
+<h2>Starting a frame timer</h2>
+
+<p>
+Often we want to measure time starting from a specific moment.
+</p>
+
+<pre><code>
+int startFrame;
+
+void setup(){
+  size(400,400);
+  startFrame = frameCount;
+}
+
+void draw(){
+
+  background(240);
+
+  if(frameCount - startFrame > 180){
+    text("3 seconds passed",150,200);
+  }
+
+}
+</code></pre>
+
+<p>
+The expression
+</p>
+
+<pre><code>
+frameCount - startFrame
+</code></pre>
+
+<p>
+tells us how many frames have passed since the timer started.
+</p>
+
+</section>
+
+
+<section>
+
+<h2>A helper function using frameCount</h2>
+
+<p>
+Instead of repeating the same logic, we can write a function.
+</p>
+
+<pre><code>
+boolean frameTimer(int startFrame, int framesNeeded){
+  return frameCount - startFrame >= framesNeeded;
+}
+</code></pre>
+
+<h3>Example</h3>
+
+<pre><code>
+int startFrame;
+
+void setup(){
+  size(400,400);
+  startFrame = frameCount;
+}
+
+void draw(){
+
+  background(240);
+
+  if(frameTimer(startFrame,180)){
+    text("3 seconds passed",150,200);
+  }
+
+}
+</code></pre>
+
+</section>
+
+
+<section>
+
+<h2>Timer using <code>millis()</code></h2>
+
+<p>
+The function <code>millis()</code> returns the number of milliseconds since the sketch started.
+</p>
+
+<p>
+1000 milliseconds = 1 second
+</p>
+
+<h3>Example</h3>
+
+<pre><code>
+void draw(){
+
+  background(240);
+
+  if(millis() > 2000){
+    ellipse(200,200,80,80);
+  }
+
+}
+</code></pre>
+
+<p>
+The circle appears after about 2000 milliseconds (2 seconds).
+</p>
+
+</section>
+
+
+<section>
+
+<h2>Starting a millis timer</h2>
+
+<pre><code>
+int startTime;
+
+void setup(){
+  size(400,400);
+  startTime = millis();
+}
+
+void draw(){
+
+  background(240);
+
+  if(millis() - startTime > 3000){
+    text("3 seconds passed",150,200);
+  }
+
+}
+</code></pre>
+
+<p>
+The expression
+</p>
+
+<pre><code>
+millis() - startTime
+</code></pre>
+
+<p>
+tells us how much time has passed since the timer started.
+</p>
+
+</section>
+
+
+<section>
+
+<h2>A reusable millis timer function</h2>
+
+<pre><code>
+boolean timePassed(int startTime, int duration){
+  return millis() - startTime >= duration;
+}
+</code></pre>
+
+<h3>Example</h3>
+
+<pre><code>
+int startTime;
+
+void setup(){
+  size(400,400);
+  startTime = millis();
+}
+
+void draw(){
+
+  background(240);
+
+  if(timePassed(startTime,3000)){
+    text("3 seconds passed",150,200);
+  }
+
+}
+</code></pre>
+
+</section>
+
+
+<section>
+
+<h2>Repeating timer (very useful pattern)</h2>
+
+<p>
+Sometimes we want an event to happen repeatedly every few seconds.
+</p>
+
+<pre><code>
+int lastSpawn;
+
+void setup(){
+  size(400,400);
+  lastSpawn = millis();
+}
+
+void draw(){
+
+  if(millis() - lastSpawn > 2000){
+    println("spawn!");
+    lastSpawn = millis();
+  }
+
+}
+</code></pre>
+
+<p>
+This prints a message every 2 seconds.
+</p>
+
+</section>
+
+
+<section>
+
+<h2>Which timer should I use?</h2>
+
+<table>
+<tr>
+<th>Timer</th>
+<th>Best use</th>
+</tr>
+
+<tr>
+<td>frameCount</td>
+<td>Animations tied to frames</td>
+</tr>
+
+<tr>
+<td>millis()</td>
+<td>Real-world time delays</td>
+</tr>
+
+</table>
+
+<p>
+In most cases <strong>millis()</strong> is more reliable because it does not depend on the frame rate.
+</p>
+
+</section>
+
+
+<section>
+
+<h2>Avoid delay()</h2>
+
+<p>
+Processing has a function called <code>delay()</code>:
+</p>
+
+<pre><code>
+delay(2000);
+</code></pre>
+
+<p>
+However, this stops the entire program, freezing animation and input.
+</p>
+
+<p>
+Timers based on <code>frameCount</code> or <code>millis()</code> allow the sketch to keep running smoothly.
+</p>
+
+</section>
+
+
+<section>
+
+<h2>Mini practice</h2>
+
+<ol>
+<li>If your sketch runs at 60 FPS, how many frames correspond to about 5 seconds?</li>
+<li>What value of <code>millis()</code> corresponds to 3 seconds?</li>
+<li>Modify the repeating timer so that the event happens every 5 seconds.</li>
+</ol>
+
+</section>
+
+
+<section>
+
+<h2>Summary</h2>
+
+<p>
+Timers allow sketches to react to the passage of time without stopping the program.
+</p>
+
+<ul>
+<li><code>frameCount</code> counts frames.</li>
+<li><code>millis()</code> measures real time in milliseconds.</li>
+<li>Subtracting start time from current time gives elapsed time.</li>
+</ul>
+
+<p>
+These simple patterns are widely used in interactive graphics and games.
+</p>
+
+</section>
+
+</main>
+
+
+<div id="footer-placeholder"></div>
+
+<script>
+  fetch("assets/includes/footer.html")
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById("footer-placeholder").innerHTML = html;
+    })
+    .catch(err => console.error("Footer load failed:", err));
+</script>
+
+
+    </body>
+</html>

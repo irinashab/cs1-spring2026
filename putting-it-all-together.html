@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Putting It Together: A Tiny Game Sketch</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<main>
+
+<section>
+  <h2>Putting It Together: A Tiny Game Sketch</h2>
+
+  <p>
+    By now, we have seen several important tools:
+  </p>
+
+  <ul>
+    <li>movement</li>
+    <li>animation</li>
+    <li>timers</li>
+    <li>collision detection</li>
+  </ul>
+
+  <p>
+    These ideas are the foundation of many simple games and interactive sketches.
+    In this page, we combine them into one small example.
+  </p>
+</section>
+
+<section>
+  <h2>What this sketch does</h2>
+
+  <p>
+    In this example:
+  </p>
+
+  <ul>
+    <li>the player moves left and right with the arrow keys</li>
+    <li>the player is animated using an array of images</li>
+    <li>the player collects a coin by touching it</li>
+    <li>after the coin is collected, it reappears 2 seconds later</li>
+  </ul>
+
+  <p>
+    This is not a full game, but it shows how the pieces work together.
+  </p>
+</section>
+
+<section>
+  <h2>Complete example</h2>
+
+<pre><code>int numFrames = 4;
+PImage[] walk = new PImage[numFrames];
+
+int playerX = 100;
+int playerY = 220;
+int playerW = 80;
+int playerH = 80;
+
+int frame = 0;
+
+int coinX = 400;
+int coinY = 240;
+int coinSize = 30;
+
+boolean coinVisible = true;
+int coinTimerStart = 0;
+
+int score = 0;
+
+void setup(){
+  size(700, 400);
+
+  for(int i = 0; i &lt; numFrames; i++){
+    walk[i] = loadImage("walk" + i + ".png");
+  }
+
+  textSize(24);
+}
+
+void draw(){
+  background(220, 235, 250);
+
+  drawGround();
+  drawCoin();
+  drawPlayer();
+  checkCoinCollision();
+  respawnCoin();
+  drawScore();
+}
+
+void drawGround(){
+  fill(100, 180, 100);
+  rect(0, 300, width, 100);
+}
+
+void drawPlayer(){
+  image(walk[frame], playerX, playerY, playerW, playerH);
+}
+
+void drawCoin(){
+  if(coinVisible){
+    fill(255, 215, 0);
+    ellipse(coinX, coinY, coinSize, coinSize);
+  }
+}
+
+void drawScore(){
+  fill(0);
+  text("Score: " + score, 20, 30);
+}
+
+void keyPressed(){
+
+  if(keyCode == RIGHT){
+    playerX += 10;
+    frame = (frame + 1) % numFrames;
+  }
+
+  if(keyCode == LEFT){
+    playerX -= 10;
+    frame = (frame + 1) % numFrames;
+  }
+
+}
+
+void checkCoinCollision(){
+  if(coinVisible &amp;&amp; rectCircle(playerX, playerY, playerW, playerH,
+                                 coinX, coinY, coinSize / 2)){
+    coinVisible = false;
+    coinTimerStart = millis();
+    score++;
+  }
+}
+
+void respawnCoin(){
+  if(!coinVisible &amp;&amp; millis() - coinTimerStart &gt; 2000){
+    coinX = int(random(50, width - 50));
+    coinVisible = true;
+  }
+}
+
+boolean rectCircle(float rx, float ry, float rw, float rh,
+                   float cx, float cy, float r){
+
+  float closestX = constrain(cx, rx, rx + rw);
+  float closestY = constrain(cy, ry, ry + rh);
+
+  return dist(cx, cy, closestX, closestY) &lt;= r;
+}</code></pre>
+
+</section>
+
+<section>
+  <h2>How the sketch is organized</h2>
+
+  <p>
+    Notice that the sketch is divided into small functions:
+  </p>
+
+  <ul>
+    <li><code>drawGround()</code></li>
+    <li><code>drawCoin()</code></li>
+    <li><code>drawPlayer()</code></li>
+    <li><code>checkCoinCollision()</code></li>
+    <li><code>respawnCoin()</code></li>
+    <li><code>drawScore()</code></li>
+  </ul>
+
+  <p>
+    This makes the code easier to read, debug, and improve.
+  </p>
+</section>
+
+<section>
+  <h2>Movement</h2>
+
+  <p>
+    The player moves when the left or right arrow key is pressed:
+  </p>
+
+<pre><code>if(keyCode == RIGHT){
+  playerX += 10;
+}
+
+if(keyCode == LEFT){
+  playerX -= 10;
+}</code></pre>
+
+  <p>
+    Changing <code>playerX</code> moves the character horizontally.
+  </p>
+</section>
+
+<section>
+  <h2>Animation</h2>
+
+  <p>
+    The walking images are stored in an array:
+  </p>
+
+<pre><code>PImage[] walk = new PImage[numFrames];</code></pre>
+
+  <p>
+    Each key press advances the animation:
+  </p>
+
+<pre><code>frame = (frame + 1) % numFrames;</code></pre>
+
+  <p>
+    The modulo operator keeps the frame index between
+    <code>0</code> and <code>numFrames - 1</code>, so the animation loops.
+  </p>
+</section>
+
+<section>
+  <h2>Collision</h2>
+
+  <p>
+    To decide whether the player touches the coin, we use a rectangle-circle collision test:
+  </p>
+
+<pre><code>if(coinVisible &amp;&amp; rectCircle(playerX, playerY, playerW, playerH,
+                             coinX, coinY, coinSize / 2)){
+  coinVisible = false;
+  coinTimerStart = millis();
+  score++;
+}</code></pre>
+
+  <p>
+    When the player touches the coin:
+  </p>
+
+  <ul>
+    <li>the coin disappears</li>
+    <li>the timer starts</li>
+    <li>the score increases</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Timer</h2>
+
+  <p>
+    The coin comes back 2 seconds later:
+  </p>
+
+<pre><code>if(!coinVisible &amp;&amp; millis() - coinTimerStart &gt; 2000){
+  coinX = int(random(50, width - 50));
+  coinVisible = true;
+}</code></pre>
+
+  <p>
+    This uses <code>millis()</code> to measure elapsed time.
+  </p>
+</section>
+
+<section>
+  <h2>Why this matters for your project</h2>
+
+  <p>
+    Many midterm projects will use this exact structure:
+  </p>
+
+  <ul>
+    <li>a character or object moves</li>
+    <li>something is drawn repeatedly in <code>draw()</code></li>
+    <li>collisions trigger events</li>
+    <li>timers control delays or respawning</li>
+  </ul>
+
+  <p>
+    Even if your project is very different in theme, the same programming ideas will still apply.
+  </p>
+</section>
+
+<section>
+  <h2>Ideas for modifications</h2>
+
+  <p>
+    Here are some simple ways to extend the sketch:
+  </p>
+
+  <ul>
+    <li>add vertical movement</li>
+    <li>add more than one coin</li>
+    <li>add an enemy to avoid</li>
+    <li>give the player 30 seconds to collect coins</li>
+    <li>end the game when the score reaches a target</li>
+    <li>replace the coin with a different collectible</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Common mistakes</h2>
+<div class="callout">
+  <ul>
+    <li>forgetting to put image files in the <code>data</code> folder</li>
+    <li>using the wrong image file names</li>
+    <li>forgetting to update the animation frame</li>
+    <li>checking collision even when the coin is invisible</li>
+    <li>trying to use <code>delay()</code> instead of a timer</li>
+    <li>writing one giant <code>draw()</code> instead of breaking code into functions</li>
+  </ul>
+  </div>
+</section>
+
+<section>
+  <h2>Mini challenge</h2>
+<div class="callout">
+  <ol>
+    <li>Make the coin respawn in both a random <code>x</code> and a random <code>y</code> position.</li>
+    <li>Add a second collectible worth 5 points.</li>
+    <li>Display “You win!” when the score reaches 10.</li>
+    <li>Add a simple enemy that decreases the score when touched.</li>
+  </ol>
+  </div>
+</section>
+
+<section>
+  <h2>Final thought</h2>
+
+  <p>
+    A good project does not need to be huge.
+    A small sketch that combines movement, animation, timers, and collisions in a clear way
+    is already a strong midterm project.
+  </p>
+
+  <p>
+    Focus on making your code organized, readable, and functional.
+  </p>
+</section>
+
+</main>
+
+</body>
+</html>

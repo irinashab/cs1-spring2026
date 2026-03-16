@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Animations in Processing</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body>
+
+<main>
+
+
+
+<section>
+
+<h2>Simple Animations in Processing</h2>
+
+<p>
+Animation is created by displaying a sequence of images quickly, one after another.
+When the images change rapidly, the eye perceives motion.
+</p>
+
+<p>
+This idea goes back to the early work of photographers such as
+<strong>Eadweard Muybridge (1830–1904)</strong>, who studied motion by taking
+many photographs in rapid succession.
+</p>
+
+<p>
+In Processing, we can create animation by:
+</p>
+
+<ul>
+<li>loading a sequence of images</li>
+<li>storing them in an array</li>
+<li>displaying one image per frame</li>
+<li>cycling through the images repeatedly</li>
+</ul>
+
+</section>
+
+
+<section>
+
+<h2>Example: Muybridge Animation</h2>
+
+<p>
+The following sketch displays a sequence of images that repeat in a loop,
+creating the illusion of motion.
+</p>
+
+<pre><code>
+/* 
+This sketch is a tribute to Eadweard Muybridge (1830–1904),
+the English photographer known for his studies of motion.
+
+The images are taken from his work "Animal Locomotion".
+
+IS
+Sept 28, 2025
+*/
+
+int numFrames = 12;
+int frame;
+
+PImage [] imgs = new PImage[numFrames];
+
+void setup(){
+
+  size(510,325);
+
+  frameRate(8);
+
+  // load all images
+  for(int i = 0; i < numFrames; i++){
+    imgs[i] = loadImage("frame" + i + ".png");
+  }
+
+}
+
+void draw(){
+
+  frame = frameCount % numFrames;
+
+  image(imgs[frame],0,0,width,height);
+
+}
+</code></pre>
+
+</section>
+
+
+<section>
+
+<h2>Step 1: Store images in an array</h2>
+
+<p>
+We first create an array to store the animation frames.
+</p>
+
+<pre><code>
+int numFrames = 12;
+PImage [] imgs = new PImage[numFrames];
+</code></pre>
+
+<p>
+Each element of the array will store one image.
+</p>
+
+</section>
+
+
+<section>
+
+<h2>Step 2: Load the images</h2>
+
+<p>
+Inside <code>setup()</code> we load the images into the array.
+</p>
+
+<pre><code>
+for(int i = 0; i < numFrames; i++){
+  imgs[i] = loadImage("frame" + i + ".png");
+}
+</code></pre>
+
+<p>
+This automatically loads:
+</p>
+
+<ul>
+<li>frame0.png</li>
+<li>frame1.png</li>
+<li>frame2.png</li>
+<li>...</li>
+<li>frame11.png</li>
+</ul>
+
+<p>
+All image files must be placed inside the sketch’s
+<strong>data</strong> folder.
+</p>
+
+</section>
+
+
+<section>
+
+<h2>Step 3: Control animation speed</h2>
+
+<p>
+The function
+</p>
+
+<pre><code>
+frameRate(8);
+</code></pre>
+
+<p>
+tells Processing to display about 8 frames per second.
+</p>
+
+<p>
+A higher value produces faster animation.
+</p>
+
+</section>
+
+
+<section>
+
+<h2>Step 4: Choose which image to display</h2>
+
+<p>
+The key line in the program is:
+</p>
+
+<pre><code>
+frame = frameCount % numFrames;
+</code></pre>
+
+<p>
+The variable <code>frameCount</code> increases every frame.
+</p>
+
+<p>
+The modulo operator <code>%</code> keeps the frame number between
+<code>0</code> and <code>numFrames − 1</code>.
+</p>
+
+<p>
+This causes the animation to loop.
+</p>
+
+</section>
+
+
+<section>
+
+<h2>Step 5: Display the image</h2>
+
+<pre><code>
+image(imgs[frame],0,0,width,height);
+</code></pre>
+
+<p>
+This draws the current animation frame on the screen.
+</p>
+
+</section>
+
+
+<section>
+
+<h2>Animation Pattern</h2>
+
+<p>
+Many simple animations follow this pattern:
+</p>
+
+<pre><code>
+load frames
+↓
+choose frame index
+↓
+display frame
+↓
+repeat
+</code></pre>
+
+<p>
+By changing the frame index over time, we create motion.
+</p>
+
+</section>
+
+
+<section>
+
+<h2>Common mistakes</h2>
+
+<ul>
+<li>Image files are not in the <strong>data</strong> folder</li>
+<li>File names do not match the code (frame0.png, frame1.png, ...)</li>
+<li>The number of images does not match <code>numFrames</code></li>
+<li>The animation is too fast or too slow (adjust <code>frameRate()</code>)</li>
+</ul>
+
+</section>
+
+
+<section>
+
+<h2>Mini exercise</h2>
+
+<ol>
+<li>Change the animation speed by modifying <code>frameRate()</code>.</li>
+<li>Try using 6 frames instead of 12.</li>
+<li>Modify the code so the animation plays forward and then backward.</li>
+</ol>
+
+</section>
+</main>
+
+
+<div id="footer-placeholder"></div>
+
+<script>
+  fetch("assets/includes/footer.html")
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById("footer-placeholder").innerHTML = html;
+    })
+    .catch(err => console.error("Footer load failed:", err));
+</script>
+
+
+    </body>
+</html>

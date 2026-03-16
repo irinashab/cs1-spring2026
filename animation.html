@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Animations in Processing</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body>
+
+<main>
+
+<section>
+
+<h2>Simple Animations in Processing</h2>
+
+<p>
+Animation is created by displaying a sequence of images quickly, one after another.
+When the images change rapidly, the eye perceives motion.
+</p>
+
+<p>
+This idea goes back to the early work of photographers such as
+<strong>Eadweard Muybridge (1830–1904)</strong>, who studied motion by taking
+many photographs in rapid succession.
+</p>
+
+<p>
+In Processing, we can create animation by:
+</p>
+
+<ul>
+<li>loading a sequence of images</li>
+<li>storing them in an array</li>
+<li>displaying one image per frame</li>
+<li>cycling through the images repeatedly</li>
+</ul>
+
+</section>
+
+
+<section>
+
+<h2>Example: Muybridge Animation</h2>
+
+<p>
+The following sketch displays a sequence of images that repeat in a loop,
+creating the illusion of motion.
+</p>
+
+<pre><code>
+/* 
+This sketch is a tribute to Eadweard Muybridge (1830–1904),
+the English photographer known for his studies of motion.
+
+The images are taken from his work "Animal Locomotion".
+
+IS
+Sept 28, 2025
+*/
+
+int numFrames = 12;
+int frame;
+
+PImage [] imgs = new PImage[numFrames];
+
+void setup(){
+
+  size(510,325);
+
+  frameRate(8);
+
+  // load all images
+  for(int i = 0; ii&lt;numFrames; i++){
+    imgs[i] = loadImage("frame" + i + ".png");
+  }
+
+}
+
+void draw(){
+
+  frame = frameCount % numFrames;
+
+  image(imgs[frame],0,0,width,height);
+
+}
+</code></pre>
+
+</section>
+
+
+
+<section>
+
+<h2>Step 1: Store images in an array</h2>
+
+<pre><code>
+int numFrames = 12;
+PImage [] imgs = new PImage[numFrames];
+</code></pre>
+
+<p>
+Each element of the array stores one frame of the animation.
+</p>
+
+</section>
+
+
+<section>
+
+<h2>Step 2: Load the images</h2>
+
+<p>
+Inside <code>setup()</code> we load the images into the array.
+</p>
+
+<pre><code>
+for(int i = 0; i i&lt; numFrames; i++){
+  imgs[i] = loadImage("frame" + i + ".png");
+}
+</code></pre>
+
+<p>
+This automatically loads:
+</p>
+
+<ul>
+<li>frame0.png</li>
+<li>frame1.png</li>
+<li>frame2.png</li>
+<li>...</li>
+<li>frame11.png</li>
+</ul>
+
+<p>
+All image files must be placed inside the sketch’s
+<strong>data</strong> folder.
+</p>
+
+</section>
+
+
+<section>
+
+<h2>Step 3: Control animation speed</h2>
+
+<pre><code>
+frameRate(8);
+</code></pre>
+
+<p>
+This sets the animation speed to about 8 frames per second.
+</p>
+
+</section>
+
+
+<section>
+
+<h2>Step 4: Choose which image to display</h2>
+
+<pre><code>
+frame = frameCount % numFrames;
+</code></pre>
+
+<p>
+<code>frameCount</code> increases every frame.
+</p>
+
+<p>
+The modulo operator <code>%</code> keeps the frame number between
+<code>0</code> and <code>numFrames-1</code>, so the animation loops.
+</p>
+
+</section>
+
+
+<section>
+
+<h2>Step 5: Display the image</h2>
+
+<pre><code>
+image(imgs[frame],0,0,width,height);
+</code></pre>
+
+<p>
+This draws the current animation frame.
+</p>
+
+</section>
+
+
+<section>
+
+<h2>Animation Pattern</h2>
+
+<p>
+Many simple animations follow this pattern:
+</p>
+
+<pre><code>
+load frames
+↓
+choose frame index
+↓
+display frame
+↓
+repeat
+</code></pre>
+
+</section>
+<section>
+
+<div class="callout">
+
+<h3>Common Mistakes</h3>
+
+<ul>
+<li>Images are not in the <code>data</code> folder</li>
+<li>File names do not match the code</li>
+<li>The number of frames does not match <code>numFrames</code></li>
+<li>The animation speed is too fast or too slow</li>
+</ul>
+
+</div>
+</section>
+
+<section>
+
+<h2>Mini Exercise</h2>
+
+<ol>
+<li>Change the animation speed using <code>frameRate()</code>.</li>
+<li>Try using only 6 frames instead of 12.</li>
+<li>Modify the code so the animation plays forward and then backward.</li>
+</ol>
+
+</section>
+
+
+<section>
+
+<h2>Keyboard-Controlled Sprite Animation</h2>
+
+<p>
+In games, animation often depends on user input.
+For example, a character may animate only when it moves.
+</p>
+
+<p>
+In the following sketch, pressing the right arrow key moves the character
+and advances the animation.
+</p>
+
+<pre><code>
+int numFrames = 6;
+PImage[] walk = new PImage[numFrames];
+
+int frame = 0;
+int x = 100;
+
+void setup(){
+
+  size(600,300);
+
+for(int i=0;i&lt;numFrames;i++){
+    walk[i] = loadImage("walk"+i+".png");
+}
+
+}
+
+void draw(){
+
+  background(240);
+
+  image(walk[frame],x,150);
+
+}
+
+void keyPressed(){
+
+  if(keyCode == RIGHT){
+
+    x += 10;
+
+    frame = (frame + 1) % numFrames;
+
+  }
+
+}
+</code></pre>
+
+</section>
+
+
+<section>
+
+<h2>How it works</h2>
+
+<ul>
+<li>The array <code>walk[]</code> stores the animation frames.</li>
+<li>Each time the right arrow key is pressed, the character moves.</li>
+<li>The frame index increases by 1.</li>
+<li>The modulo operator keeps the animation looping.</li>
+</ul>
+
+</section>
+
+
+<section>
+
+<h2>Why this pattern is useful</h2>
+
+<p>
+This technique is used in many games:
+</p>
+
+<ul>
+<li>walking animations</li>
+<li>running animations</li>
+<li>character attacks</li>
+<li>jumping sequences</li>
+</ul>
+
+<p>
+Instead of drawing one static image, the program cycles through
+a sequence of frames to simulate motion.
+</p>
+
+</section>
+
+
+<section>
+
+<h2>Summary</h2>
+
+<ul>
+<li>Animation is created by displaying a sequence of images.</li>
+<li>Images are usually stored in an array.</li>
+<li>The current frame is selected using a frame index.</li>
+<li>The modulo operator allows the animation to loop.</li>
+<li>Input (keyboard or mouse) can control when animation advances.</li>
+</ul>
+
+</section>
+
+</main>
+
+
+<div id="footer-placeholder"></div>
+
+<script>
+  fetch("assets/includes/footer.html")
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById("footer-placeholder").innerHTML = html;
+    })
+    .catch(err => console.error("Footer load failed:", err));
+</script>
+
+
+    </body>
+</html>

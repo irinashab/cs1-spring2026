@@ -304,3 +304,65 @@ padding:8px;
   text-align:center;
   font-family:monospace;
 }
+pre {
+  background: #f6f8fa;
+  padding: 14px;
+  border-radius: 6px;
+  overflow-x: auto;
+  border-left: 4px solid #4a6fa5;
+  line-height: 1.4;
+}
+
+code {
+  font-family: "Courier New", monospace;
+  font-size: 0.95em;
+}
+
+pre code {
+  color: #222;
+}
+table {
+  border-collapse: collapse;
+  margin: 15px 0;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+}
+
+th {
+  background: #eef2f7;
+}
+section {
+  margin-bottom: 35px;
+}
+.callout {
+  background: #ffffe0;
+  border-left: 5px solid #FDFD96;
+  padding: 14px 16px;
+  margin: 20px 0;
+  border-radius: 4px;
+}
+
+.callout h3 {
+  margin-top: 0;
+}
+
+.callout ul {
+  margin: 6px 0 0 18px;
+}
+.warning {
+  background: #fff4e5;
+  border-left: 5px solid #f39c12;
+}
+
+.tip {
+  background: #eaf7ff;
+  border-left: 5px solid #3498db;
+}
+
+.note {
+  background: #f3f5f7;
+  border-left: 5px solid #888;
+}
