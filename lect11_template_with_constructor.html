@@ -6,36 +6,25 @@
   <title>CS1 – Lesson 11: A Touch of Class</title>
   <link rel="stylesheet" href="assets/style.css">
 </head>
-
 <body>
-
-<header>
+<header class="site-header">
   <h1>Lesson 11: A Touch of Class</h1>
-
+  <p class="course-meta">CS1 – Processing</p>
 </header>
-
 <main>
 
 <section>
   <h2>Objects and Classes</h2>
-
   <p>
     Think about people. We all have the same kinds of properties: name, age, height.
     But each person has different values.
   </p>
-<p>
-Java (and Processing) are Object-oriented programming languages.<br/>
-Objects have properties.<br/>
-</p>
   <div class="callout note">
     <strong>Key idea:</strong><br>
     A <strong>class</strong> is a blueprint.<br>
     An <strong>object</strong> is an instance created from that blueprint.
   </div>
-
-  <p>
-    In programming, a class groups together:
-  </p>
+  <p>In programming, a class groups together:</p>
   <ul>
     <li>Variables (data / state)</li>
     <li>Functions (behavior / methods)</li>
@@ -44,31 +33,23 @@ Objects have properties.<br/>
 
 <section>
   <h2>Minimal Class Structure</h2>
-
-  <pre><code>
-class Ball {
+  <pre><code>class Ball {
   // variables (state)
 
   // constructor
 
   // methods (behavior)
-}
-  </code></pre>
+}</code></pre>
 </section>
 
 <section>
   <h2>Creating an Object</h2>
-
   <p>We use the keyword <code>new</code>:</p>
-
-  <pre><code>
-Ball myBall;
+  <pre><code>Ball myBall;
 
 void setup(){
   myBall = new Ball();
-}
-  </code></pre>
-
+}</code></pre>
   <div class="callout tip">
     The constructor runs automatically when you use <code>new</code>.
   </div>
@@ -76,18 +57,15 @@ void setup(){
 
 <section>
   <h2>Using an Object (Dot Syntax)</h2>
-
-  <pre><code>
-myBall.move();
-myBall.display();
-  </code></pre>
-
+  <pre><code>myBall.move();
+myBall.display();</code></pre>
   <div class="callout note">
     <strong>Dot syntax:</strong><br>
     <code>object.method()</code> means:<br>
     “ask this specific object to perform an action”
   </div>
 </section>
+
 <section>
   <h2>Constructors</h2>
   <p>
@@ -167,12 +145,9 @@ BallConstructor() { }   // not a constructor
 b.Ball();               // not how constructors are called</code></pre>
 </section>
 
-
 <section>
   <h2>Full Ball Class</h2>
-
-  <pre><code>
-class Ball {
+  <pre><code>class Ball {
   float xpos, ypos;
   float xspeed, yspeed;
   color ballColor;
@@ -196,15 +171,12 @@ class Ball {
     fill(ballColor);
     ellipse(xpos, ypos, diameter, diameter);
   }
-}
-  </code></pre>
+}</code></pre>
 </section>
 
 <section>
   <h2>Custom Constructor</h2>
-
-  <pre><code>
-Ball(float xpos, float ypos, color ballColor,
+  <pre><code>Ball(float xpos, float ypos, color ballColor,
      int diameter, float xspeed, float yspeed){
 
   this.xpos = xpos;
@@ -213,55 +185,52 @@ Ball(float xpos, float ypos, color ballColor,
   this.diameter = diameter;
   this.xspeed = xspeed;
   this.yspeed = yspeed;
-}
-  </code></pre>
+}</code></pre>
 
   <div class="callout note">
     <strong>Important:</strong><br>
     <code>this.xpos</code> refers to the object's variable.<br>
     <code>xpos</code> is the parameter passed in.
   </div>
+
+  <p>Now we can create different balls:</p>
+  <pre><code>Ball b1 = new Ball(100, 200, color(255, 0, 0), 40, 3, 2);
+Ball b2 = new Ball(300, 50, color(0, 0, 255), 60, -2, 3);</code></pre>
 </section>
 
 <section>
   <h2>Multiple Objects</h2>
-
-  <pre><code>
-Ball b1, b2;
+  <pre><code>Ball b1, b2;
 
 void setup(){
-  size(600,600);
-  b1 = new Ball();
-  b2 = new Ball();
+  size(600,400);
+  b1 = new Ball(100, 200, color(255, 0, 0), 40, 3, 2);
+  b2 = new Ball(400, 150, color(50, 100, 220), 60, -2, 3);
 }
 
 void draw(){
   background(255);
   b1.move();
   b1.display();
-
   b2.move();
   b2.display();
-}
-  </code></pre>
+}</code></pre>
 
   <div class="callout tip">
-    Each object has its own data — they behave independently.
+    Each object has its own data — changing one object does not change the other.
   </div>
 </section>
 
 <section>
   <h2>Before vs After</h2>
-
   <ul>
-    <li><strong>Before:</strong> many variables (x1, y1, x2, y2...)</li>
+    <li><strong>Before:</strong> many variables like <code>x1</code>, <code>y1</code>, <code>x2</code>, <code>y2</code></li>
     <li><strong>After:</strong> one class → many objects</li>
   </ul>
 </section>
 
 <section>
   <h2>Naming Conventions</h2>
-
   <ul>
     <li>Classes: <code>Ball</code>, <code>GameCharacter</code></li>
     <li>Variables/methods: <code>camelCase</code></li>
@@ -271,18 +240,16 @@ void draw(){
 
 <section>
   <h2>Try This</h2>
-
   <ul>
     <li>Create 3 Ball objects</li>
     <li>Give each a different color</li>
     <li>Use different speeds</li>
+    <li>Add edge bouncing as a next step</li>
   </ul>
 </section>
 
 </main>
-
 <div id="footer-placeholder"></div>
-
 <script>
   fetch("assets/includes/footer.html")
     .then(response => response.text())
@@ -291,6 +258,5 @@ void draw(){
     })
     .catch(err => console.error("Footer load failed:", err));
 </script>
-
 </body>
 </html>

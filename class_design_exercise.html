@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CS1 – Class Design Exercise</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <h1>Class Design Exercise</h1>
+
+</header>
+
+<main>
+
+<section>
+  <p>
+    In this exercise, you will design your own class, create several objects from it,
+    and animate them on the screen.
+  </p>
+
+  <div class="callout note">
+    <strong>Reminder:</strong> A <strong>class</strong> is the blueprint, and an
+    <strong>object</strong> is an instance created from that blueprint.
+  </div>
+</section>
+
+<section>
+  <h2>Step 1: Class Design &amp; Planning</h2>
+
+  <p>
+    Choose an object that has clear <strong>properties</strong> and
+    <strong>behaviors</strong>.
+  </p>
+
+  <h3>Ask yourself:</h3>
+  <ul>
+    <li>What does my object represent?</li>
+    <li>What properties (instance variables) does it have?</li>
+    <li>What behaviors (methods) should it perform?</li>
+    <li>How will it look on the screen?</li>
+  </ul>
+
+  <div class="callout tip">
+    Pick something that is visually interesting but still manageable:
+    a butterfly, fish, ghost, robot, spaceship, snowflake, bouncing creature, etc.
+  </div>
+</section>
+
+<section>
+  <h2>Example Design</h2>
+
+  <div class="card">
+    <p><strong>CLASS NAME:</strong> <code>FlutteringButterfly</code></p>
+    <p><strong>DESCRIPTION:</strong> A butterfly that flutters around the screen</p>
+
+    <h3>Properties</h3>
+    <ul>
+      <li><code>float x, y</code> — position</li>
+      <li><code>float wingAngle</code> — current wing position</li>
+      <li><code>color bodyColor, wingColor</code></li>
+      <li><code>float speedX, speedY</code> — movement direction</li>
+      <li><code>float size</code> — scale of butterfly</li>
+    </ul>
+
+    <h3>Methods</h3>
+    <ul>
+      <li><code>void flutter()</code> — makes the wings flap</li>
+      <li><code>void move()</code> — updates position</li>
+      <li><code>void display()</code> — draws the butterfly</li>
+      <li><code>void checkBounds()</code> — keeps it on the screen</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>Step 2: Implementation</h2>
+
+  <h3>File Structure</h3>
+  <ul>
+    <li><strong>Main tab:</strong> contains <code>setup()</code>, <code>draw()</code>, and your object declarations</li>
+    <li><strong>Class tab:</strong> contains your custom class</li>
+  </ul>
+
+  <div class="callout note">
+    In Processing, put your class in a separate tab and give that tab the same name as the class.
+  </div>
+
+  <h3>Implementation Checklist</h3>
+  <ul>
+    <li>Create your class using proper naming convention (<code>PascalCase</code>)</li>
+    <li>Declare all instance variables</li>
+    <li>Write <strong>at least one constructor</strong></li>
+    <li>Implement your planned methods</li>
+    <li>Test that <strong>one object</strong> works correctly before making more</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Step 3: Create &amp; Animate Multiple Objects</h2>
+
+  <p>Create <strong>at least 3 instances</strong> of your class.</p>
+
+  <p>Make them different by changing their:</p>
+  <ul>
+    <li>starting positions</li>
+    <li>colors</li>
+    <li>sizes</li>
+    <li>speeds or directions</li>
+  </ul>
+
+  <div class="callout tip">
+    The objects should come from the <strong>same class</strong>, but have different initial values.
+  </div>
+</section>
+
+<section>
+  <h2>Step 4: Go-Getter Extension</h2>
+
+  <p>Create an <strong>array of objects</strong> instead of declaring each object separately.</p>
+
+  <pre><code>Ball[] balls = new Ball[10];</code></pre>
+
+  <p>
+    Then use a loop to create and display all of them.
+  </p>
+</section>
+
+<section>
+  <h2>Minimum Requirements</h2>
+
+  <div class="grid two">
+    <div class="card">
+      <ul>
+        <li>one custom class</li>
+        <li>at least 3 objects</li>
+        <li>at least 3 instance variables</li>
+      </ul>
+    </div>
+    <div class="card">
+      <ul>
+        <li>at least 3 methods</li>
+        <li>at least one constructor</li>
+        <li>visible animation</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Suggestions for Success</h2>
+
+  <ul>
+    <li>Start simple. Get one object working first.</li>
+    <li>Make <code>display()</code> work before worrying about fancy movement.</li>
+    <li>Use meaningful variable names.</li>
+    <li>Do not make your design too complicated too soon.</li>
+    <li>Save often and test often.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Submission</h2>
+
+  <p>
+    Submit your Processing sketch with all tabs included.
+  </p>
+
+  <div class="callout warning">
+    Make sure your program runs without errors before you submit.
+  </div>
+</section>
+
+</main>
+
+<div id="footer-placeholder"></div>
+
+<script>
+  fetch("assets/includes/footer.html")
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById("footer-placeholder").innerHTML = html;
+    })
+    .catch(err => console.error("Footer load failed:", err));
+</script>
+
+</body>
+</html>
