@@ -331,6 +331,25 @@ acc.accountNumber = 5;</code></pre>
       For example, an account balance changes over time, but an account number usually should not.
     </p>
   </section>
+  <section>
+  <h2>Getters and setters</h2>
+  <p>
+    In many classes, we use methods called <strong>getters</strong> and <strong>setters</strong>.
+  </p>
+  <ul>
+    <li>A <strong>getter</strong> (or inspector) returns information about an object.</li>
+    <li>A <strong>setter</strong> (or mutator) changes the object's data in a controlled way.</li>
+  </ul>
+  <p>
+    For example, <code>getX()</code> returns the value of <code>x</code>,
+    while <code>setY(value)</code> changes <code>y</code>.
+  </p>
+  <p>
+    However, good design does <strong>not</strong> mean writing getters and setters for everything.
+    Sometimes a setter is unnecessary or even harmful.
+    The goal is to allow only meaningful and valid changes.
+  </p>
+</section>
 
   <section>
     <h2>Example 2: Point</h2>
