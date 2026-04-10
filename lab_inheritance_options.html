@@ -46,7 +46,16 @@
     <li>A child constructor that uses <code>super(...)</code>.</li>
     <li>At least one method that is <strong>overridden</strong> in the child class.</li>
     <li>A sketch that creates objects and shows that the child class behaves differently from the parent.</li>
+    <li>At least one example where you access or change data using a method instead of direct variable access.</li>
   </ul>
+</section>
+
+<section>
+  <h2>A good design reminder</h2>
+  <p>
+    Avoid writing code like <code>obj.x = ...</code> unless you truly need direct access.
+    Prefer meaningful methods such as <code>move()</code>, <code>display()</code>, or a setter that enforces a rule.
+  </p>
 </section>
 
 <section>
@@ -195,14 +204,28 @@ class Ellipse extends Shape {
     Small hint: if both child classes inherit from <code>Shape</code>, then one array of
     <code>Shape</code> references can store both kinds of objects.
   </p>
-  <ul>
-<li>When you call <code>shapes[i].move()</code>, which version of <code>move()</code> is executed for each object?</li>
-<li>Explain how the program decides which method to use.</li>
-</ul>
+
   <p>
     This is a first step toward <strong>polymorphism</strong>: one array can store objects of different child classes
     because all of them are also <code>Shape</code> objects.
   </p>
+
+  <p>
+    Think about this question while you work: when you call <code>shapes[i].move()</code>, which version of
+    <code>move()</code> is actually executed for each object, and how does the program decide?
+  </p>
+</section>
+
+<section>
+  <h2>Reflection</h2>
+  <p>
+    Answer these questions in comments at the top of your code:
+  </p>
+  <ul>
+    <li>Give one example where you used a method instead of changing a variable directly.</li>
+    <li>Why is using a method better in that situation?</li>
+    <li>Did your class enforce any rule, such as keeping a value within a certain range or controlling motion? If yes, explain.</li>
+  </ul>
 </section>
 
 <section>
@@ -211,6 +234,8 @@ class Ellipse extends Shape {
     <li>Your full sketch folder.</li>
     <li>Clear comments showing what is inherited and what is overridden.</li>
     <li>A short note at the top saying whether you chose <strong>Option A</strong> or <strong>Option B</strong>.</li>
+    <li>Your reflection answers in comments at the top of the code.</li>
+    <li>If you completed the extension, say so clearly in a comment.</li>
   </ul>
 </section>
 
@@ -221,6 +246,7 @@ class Ellipse extends Shape {
     <li>I used <code>super(...)</code> in the child constructor.</li>
     <li>I overrode at least one method.</li>
     <li>My child class looks or moves differently from the parent idea.</li>
+    <li>I used at least one method instead of directly changing a variable.</li>
     <li>My code is commented and organized.</li>
   </ul>
 </section>
