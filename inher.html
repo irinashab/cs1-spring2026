@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CS1 – Lab: Inheritance Options</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header>
+    <h1>Lab: Inheritance Options</h1>
+</header>
+<main>
+
+<section>
+  <h2>Goal</h2>
+  <p>
+    In this lab, you will practice <strong>inheritance</strong> in Processing. You have two paths to choose from.
+    Both paths focus on the same big idea: a child class can <em>inherit</em> data and behavior from a parent class,
+    and then <em>customize</em> what it does.
+  </p>
+</section>
+
+<section>
+  <h2>Choose One Path</h2>
+
+  <h3>Option A: Build on Your Previous Lab</h3>
+  <p>
+    If you already created your own simple class in a previous lab, you may continue working with it.
+    Your task is to turn that old class into a <strong>parent class</strong>, then create at least one <strong>child class</strong>
+    that extends it.
+  </p>
+
+  <h3>Option B: Start from the Shape / Ellipse example</h3>
+  <p>
+    If you prefer, you may use the <code>Shape</code> / <code>Ellipse</code> example from class. Your task is to create
+    another subclass of <code>Shape</code>, such as <code>Rectangle</code>, <code>Triangle</code>, or <code>Square</code>.
+  </p>
+</section>
+
+<section>
+  <h2>What You Must Show</h2>
+  <ul>
+    <li>A parent class with shared instance variables and at least one shared method.</li>
+    <li>A child class that uses <code>extends</code>.</li>
+    <li>A child constructor that uses <code>super(...)</code>.</li>
+    <li>At least one method that is <strong>overridden</strong> in the child class.</li>
+    <li>A sketch that creates objects and shows that the child class behaves differently from the parent.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Option A: Continue Your Previous Lab</h2>
+  <p>
+    Suppose your earlier lab had a class such as <code>Creature</code>, <code>Bug</code>, <code>Ball</code>, <code>Flower</code>,
+    or something else you designed yourself. You may now reorganize it as follows:
+  </p>
+
+  <ol>
+    <li>Keep the common data and behavior in the parent class.</li>
+    <li>Create a child class that extends the parent.</li>
+    <li>Change the child class so that it overrides at least one method such as <code>display()</code>, <code>move()</code>, or both.</li>
+  </ol>
+
+  <p><strong>Example idea:</strong> if your old class was <code>Bug</code>, you could now make:</p>
+
+  <pre><code>class Bug {
+  float x, y;
+  float speedX, speedY;
+
+  Bug(float x, float y) {
+    this.x = x;
+    this.y = y;
+    speedX = random(-2, 2);
+    speedY = random(-2, 2);
+  }
+
+  void move() {
+    x += speedX;
+    y += speedY;
+  }
+
+  void display() {
+    ellipse(x, y, 20, 20);
+  }
+}
+
+class FancyBug extends Bug {
+  FancyBug(float x, float y) {
+    super(x, y);
+  }
+
+  void display() {
+    fill(255, 0, 0);
+    ellipse(x, y, 30, 15);
+    line(x - 10, y, x + 10, y);
+  }
+}</code></pre>
+
+  <p>
+    You do <strong>not</strong> have to use this exact example. Use your own earlier class if you want.
+  </p>
+</section>
+
+<section>
+  <h2>Option B: Start from Shape / Ellipse</h2>
+  <p>
+    Here is a parent class <code>Shape</code> and one child class <code>Ellipse</code>. You may use this as your starting point.
+  </p>
+
+  <pre><code>class Shape {
+  float xPosition, yPosition, xSpeed, ySpeed;
+  color c;
+  float size;
+
+  Shape() {
+    xPosition = width / 2;
+    yPosition = height / 2;
+    c = color(random(255), random(255), random(255));
+    size = random(10, 30);
+    xSpeed = random(5);
+    ySpeed = random(5);
+  }
+
+  Shape(float xPosition, float yPosition, color c, float size) {
+    this.xPosition = xPosition;
+    this.yPosition = yPosition;
+    this.c = c;
+    this.size = size;
+    xSpeed = random(5);
+    ySpeed = random(5);
+  }
+
+  void move() {
+    xPosition += xSpeed;
+    yPosition += ySpeed;
+  }
+}
+
+class Ellipse extends Shape {
+  Ellipse(float xPosition, float yPosition, color c, float size) {
+    super(xPosition, yPosition, c, size);
+    ySpeed = 0;
+  }
+
+  void drawShape() {
+    fill(c);
+    ellipse(xPosition, yPosition, size, size);
+  }
+
+  void move() {
+    xPosition += xSpeed;
+    if (xPosition > width) {
+      xPosition = -width / 4;
+    }
+  }
+}</code></pre>
+
+  <p>Your job is to add another child class of <code>Shape</code>. For example:</p>
+  <ul>
+    <li><code>Rectangle</code></li>
+    <li><code>Triangle</code></li>
+    <li><code>Square</code></li>
+  </ul>
+
+  <p>Your new subclass should:</p>
+  <ul>
+    <li>call <code>super(...)</code> in its constructor,</li>
+    <li>have its own drawing method,</li>
+    <li>override <code>move()</code> in some visible way.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Go-Getter Option</h2>
+  <p>
+    If you finish early, create an array that stores different child objects in one array. For example,
+    you may store <code>Ellipse</code> objects in the even indexes and your new shape objects in the odd indexes.
+  </p>
+
+  <pre><code>Shape[] shapes = new Shape[10];
+
+void setup() {
+  size(500, 500);
+
+  for (int i = 0; i < shapes.length; i++) {
+    if (i % 2 == 0) {
+      shapes[i] = new Ellipse(random(width), random(height),
+        color(random(255), random(255), random(255)), random(20, 50));
+    } else {
+      shapes[i] = new Rectangle(random(width), random(height),
+        color(random(255), random(255), random(255)), random(20, 50));
+    }
+  }
+}
+
+void draw() {
+  background(0);
+  for (int i = 0; i < shapes.length; i++) {
+    shapes[i].move();
+    // call the correct drawing method for each object
+  }
+}</code></pre>
+
+  <p>
+    This is a first step toward <strong>polymorphism</strong>: one array can store objects of different child classes
+    because all of them are also <code>Shape</code> objects.
+  </p>
+</section>
+
+<section>
+  <h2>What to Submit</h2>
+  <ul>
+    <li>Your full sketch folder.</li>
+    <li>Clear comments showing what is inherited and what is overridden.</li>
+    <li>A short note at the top saying whether you chose <strong>Option A</strong> or <strong>Option B</strong>.</li>
+    <li>If you completed the extension, say so clearly in a comment.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Checklist</h2>
+  <ul>
+    <li>I used <code>extends</code>.</li>
+    <li>I used <code>super(...)</code> in the child constructor.</li>
+    <li>I overrode at least one method.</li>
+    <li>My child class looks or moves differently from the parent idea.</li>
+    <li>My code is commented and organized.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Reminder</h2>
+  <p>
+    Inheritance is not just copying code into a second class. The point is to keep the common parts in one parent class,
+    then let child classes specialize the behavior.
+  </p>
+</section>
+
+</main>
+<div id="footer-placeholder"></div>
+
+<script>
+  fetch("assets/includes/footer.html")
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById("footer-placeholder").innerHTML = html;
+    })
+    .catch(err => console.error("Footer load failed:", err));
+</script>
+
+</body>
+</html>

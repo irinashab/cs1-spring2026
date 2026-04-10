@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CS1 – Starter Code: Classes</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <h1>Starter Code: Classes</h1>
+  <p class="course-meta">CS1 – Processing</p>
+</header>
+
+<main>
+
+<section>
+  <p>
+    Use this starter code as a template for your class-based project.
+    Copy and modify it to match your own object design.
+  </p>
+</section>
+
+<section>
+  <h2>Main Sketch (Tab 1)</h2>
+
+  <pre><code>
+// Declare your objects here
+MyObject obj1;
+MyObject obj2;
+MyObject obj3;
+
+void setup() {
+  size(600, 400);
+
+  // Create objects using the constructor
+  obj1 = new MyObject(100, 200);
+  obj2 = new MyObject(300, 150);
+  obj3 = new MyObject(500, 250);
+}
+
+void draw() {
+  background(255);
+
+  obj1.move();
+  obj1.display();
+
+  obj2.move();
+  obj2.display();
+
+  obj3.move();
+  obj3.display();
+}
+  </code></pre>
+</section>
+
+<section>
+  <h2>Class Definition (New Tab)</h2>
+
+  <div class="callout note">
+    Create a new tab and name it the same as your class (for example: <code>MyObject</code>).
+  </div>
+
+  <pre><code>
+class MyObject {
+
+  // Instance variables (properties)
+  float x, y;
+  float speedX, speedY;
+  float size;
+  color col;
+
+  // Constructor
+  MyObject(float x, float y) {
+    this.x = x;
+    this.y = y;
+
+    // Initialize other properties
+    speedX = random(-3, 3);
+    speedY = random(-3, 3);
+    size = random(20, 50);
+    col = color(random(255), random(255), random(255));
+  }
+
+  // Movement behavior
+  void move() {
+    x += speedX;
+    y += speedY;
+  }
+
+  // Display behavior
+  void display() {
+    fill(col);
+    ellipse(x, y, size, size);
+  }
+
+}
+  </code></pre>
+</section>
+
+<section>
+  <h2>Optional: Add Boundaries</h2>
+
+  <pre><code>
+void checkBounds() {
+  if (x < 0 || x > width) {
+    speedX = -speedX;
+  }
+  if (y < 0 || y > height) {
+    speedY = -speedY;
+  }
+}
+  </code></pre>
+
+  <p>Add this method and call it inside <code>draw()</code> if you want bouncing behavior.</p>
+</section>
+
+<section>
+  <h2>Optional: Using an Array (Advanced)</h2>
+
+  <pre><code>
+MyObject[] objects = new MyObject[10];
+
+void setup() {
+  size(600, 400);
+
+  for (int i = 0; i < objects.length; i++) {
+    objects[i] = new MyObject(random(width), random(height));
+  }
+}
+
+void draw() {
+  background(255);
+
+  for (MyObject obj : objects) {
+    obj.move();
+    obj.display();
+  }
+}
+  </code></pre>
+</section>
+
+<section>
+  <h2>What to Modify</h2>
+
+  <ul>
+    <li>Rename <code>MyObject</code> to your class name</li>
+    <li>Add or change properties</li>
+    <li>Customize the drawing in <code>display()</code></li>
+    <li>Add your own methods (e.g., rotate, grow, animate)</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Common Mistakes</h2>
+
+  <div class="callout warning">
+    <ul>
+      <li>Forgetting to use <code>new</code> when creating objects</li>
+      <li>Putting <code>void</code> before the constructor (don’t do that!)</li>
+      <li>Forgetting to call methods in <code>draw()</code></li>
+      <li>Mismatch between class name and tab name</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<div id="footer-placeholder"></div>
+
+<script>
+  fetch("assets/includes/footer.html")
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById("footer-placeholder").innerHTML = html;
+    })
+    .catch(err => console.error("Footer load failed:", err));
+</script>
+
+</body>
+</html>

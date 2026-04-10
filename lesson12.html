@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CS1 – Lesson 12: Encapsulation</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header>
+  <h1>Lesson 12: Encapsulation</h1>
+</header>
+
+<main>
+  <section>
+    <h2>Big picture</h2>
+    <p>
+      So far, we have talked about classes, objects, inheritance, and polymorphism.
+      Another major object-oriented programming idea is <strong>encapsulation</strong>.
+    </p>
+    <p>
+      Encapsulation means that an object keeps its data and the methods that work with that data together,
+      and controls how that data can be changed.
+    </p>
+    <p>
+      In short:
+    </p>
+    <ul>
+      <li><strong>Inheritance</strong> asks: how are classes related?</li>
+      <li><strong>Polymorphism</strong> asks: which method runs?</li>
+      <li><strong>Encapsulation</strong> asks: who is allowed to touch the data?</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Processing vs. Java</h2>
+    <p>
+      In Processing, we often leave variables open because it keeps examples short and easy to read.
+      That is convenient in a beginner class, but it is not the whole story.
+    </p>
+    <p>
+      In standard Java, fields are often declared <code>private</code>, which means they are supposed to be
+      accessed only inside the class itself. Outside code should interact with the object through methods.
+    </p>
+    <p>
+      Processing is built on Java, but the PDE sketch environment is more relaxed. As a result, <code>private</code>
+      in Processing sketches does not always behave as strictly as students should expect in ordinary Java programs.
+      So Processing is great for learning ideas quickly, but not always a perfect model of professional Java design.
+    </p>
+  </section>
+
+  <section>
+    <h2>Access modifiers in Java</h2>
+    <p>In Java, access modifiers help control visibility:</p>
+    <ul>
+      <li><code>private</code>: only this class can access the variable or method</li>
+      <li><code>public</code>: any code can access it</li>
+      <li><code>protected</code>: subclasses can access it directly</li>
+    </ul>
+    <p>
+      In this lesson, our main focus is on <code>private</code> fields and public methods.
+    </p>
+  </section>
+
+  <section>
+    <h2>A first example: Account</h2>
+    <p>
+      The class below is a reasonable example of encapsulation. The account stores its own data,
+      and outside code is supposed to use methods such as <code>deposit()</code>, <code>withdraw()</code>,
+      and <code>getBalance()</code>.
+    </p>
+
+<pre><code>class Account {
+  private int accountNumber;
+  private float accountBalance;
+
+  Account(int number) {
+    accountNumber = number;
+    accountBalance = 50;
+  }
+
+  public int getAccountNumber() {
+    return accountNumber;
+  }
+
+  public float getBalance() {
+    return accountBalance;
+  }
+
+  public void deposit(float amount) {
+    if (amount &lt; 0) {
+      println("Invalid deposit amount.");
+    } else {
+      accountBalance += amount;
+    }
+  }
+
+  public void withdraw(float amount) {
+    float fee = 1.25;
+    if (amount &lt; 0) {
+      println("Invalid withdrawal amount.");
+    } else if (amount + fee &gt; accountBalance) {
+      println("Insufficient funds.");
+    } else {
+      accountBalance -= (amount + fee);
+    }
+  }
+}</code></pre>
+
+    <p>
+      Notice that this class does <strong>not</strong> provide a generic <code>setBalance()</code> method.
+      That is a good design choice. Encapsulation is not about writing getters and setters for everything.
+      It is about deciding what operations make sense.
+    </p>
+    <p>
+      For a bank account, <code>deposit()</code> and <code>withdraw()</code> make sense.
+      Randomly setting the balance does not.
+    </p>
+    <p>
+      Also note: in real financial software, using <code>float</code> for money is not a good idea because of rounding issues.
+      We use it here only for simplicity.
+    </p>
+  </section>
+
+  <section>
+    <h2>Why encapsulation matters</h2>
+    <p>
+      Suppose anybody could directly write:
+    </p>
+<pre><code>acc.accountBalance = -9000;
+acc.accountNumber = 5;</code></pre>
+    <p>
+      Then the methods <code>deposit()</code> and <code>withdraw()</code> would become almost meaningless,
+      because outside code could ignore all the rules.
+    </p>
+    <p>
+      Encapsulation lets the object protect its own state.
+      The object decides what changes are allowed.
+    </p>
+  </section>
+
+  <section>
+    <h2>A cleaner visual example: Point</h2>
+    <p>
+      The <code>Point</code> example is even better for CS1 because it is visual. We can actually see what happens
+      when we change coordinates in a controlled way.
+    </p>
+
+<pre><code>Point p0, p1;
+
+void setup() {
+  size(500, 500);
+  p0 = new Point(width/2, height/2);
+  p1 = new Point(random(width), random(height));
+}
+
+void draw() {
+  background(0);
+
+  p0.display(color(255));
+  p0.move(0, 1);   // controlled change through a method
+
+  if (mousePressed) {
+    p0.y = height/2;   // should be illegal outside the class in proper Java
+  }
+
+  p1.display(color(255, 0, 0));
+  p1.setY(height + 20);   // setter prevents point from going below the window
+}
+
+class Point {
+  private float x, y;
+
+  Point(float x, float y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  public float getX() {
+    return x;
+  }
+
+  public float getY() {
+    return y;
+  }
+
+  public void setX(float value) {
+    x = constrain(value, 0, width);
+  }
+
+  public void setY(float value) {
+    y = constrain(value, 0, height);
+  }
+
+  public void move(float dx, float dy) {
+    setX(x + dx);
+    setY(y + dy);
+  }
+
+  public void display(color c) {
+    fill(c);
+    ellipse(x, y, 10, 10);
+  }
+}</code></pre>
+
+    <p>
+      Here the setters do something useful: they keep the point on the screen.
+      That means the class is enforcing a rule, or <strong>invariant</strong>.
+    </p>
+    <p>
+      This is the main idea of encapsulation: the object does not merely store data;
+      it protects that data by controlling how it changes.
+    </p>
+  </section>
+
+  <section>
+    <h2>Important lesson from the Point example</h2>
+    <p>
+      Compare these two approaches:
+    </p>
+<pre><code>p0.setY(p0.getY() + 1);   // controlled change
+p0.move(0, 1);           // even better: meaningful operation
+
+p0.y = height/2;         // direct access, bypasses the class</code></pre>
+    <p>
+      In good object-oriented design, we prefer meaningful methods such as <code>move()</code>
+      over letting outside code manipulate raw data directly.
+    </p>
+    <p>
+      This is why encapsulation is more than "hide variables and add setters."
+      It means that objects provide sensible operations and enforce sensible rules.
+    </p>
+  </section>
+
+  <section>
+    <h2>Common beginner misunderstanding</h2>
+    <p>
+      A common mistake is to think that encapsulation means: make everything private,
+      then write getters and setters for everything.
+    </p>
+    <p>
+      That is not always good design.
+      Sometimes a getter is fine. Sometimes a setter is not.
+      For example, an account number probably should not change after an account is created.
+    </p>
+    <p>
+      Good encapsulation asks: what changes should this object allow?
+    </p>
+  </section>
+
+  <section>
+    <h2>Summary</h2>
+    <ul>
+      <li>Encapsulation means keeping data and behavior together and controlling access to the data.</li>
+      <li>In Java, fields are often <code>private</code> and objects are manipulated through methods.</li>
+      <li>Processing is more relaxed, so it does not always enforce access control the way standard Java does.</li>
+      <li>Encapsulation is useful because methods can enforce rules and protect the object's state.</li>
+      <li>Good design prefers meaningful operations such as <code>deposit()</code>, <code>withdraw()</code>, and <code>move()</code> over arbitrary direct changes to fields.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Class discussion questions</h2>
+    <ol>
+      <li>Why is <code>deposit()</code> better than <code>setBalance()</code>?</li>
+      <li>Why might an account number have a getter but no setter?</li>
+      <li>What rule does <code>setY()</code> enforce in the <code>Point</code> example?</li>
+      <li>Why is <code>move()</code> a better design choice than changing <code>x</code> and <code>y</code> directly?</li>
+      <li>Why is Processing convenient for learning, but not a perfect model of encapsulation in Java?</li>
+    </ol>
+  </section>
+</main>
+
+<div id="footer-placeholder"></div>
+
+<script>
+  fetch("assets/includes/footer.html")
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById("footer-placeholder").innerHTML = html;
+    })
+    .catch(err => console.error("Footer load failed:", err));
+</script>
+
+</body>
+</html>
