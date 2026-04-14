@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CS1 – Lesson: Images and Pixels</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    code, pre {
+      font-family: "Courier New", Courier, monospace;
+    }
+    pre {
+      background: #f5f5f5;
+      padding: 1em;
+      overflow-x: auto;
+      border-radius: 6px;
+    }
+    .note {
+      background: #eef6ff;
+      padding: 0.8em 1em;
+      border-left: 4px solid #4a7bd1;
+      margin: 1em 0;
+    }
+    .warning {
+      background: #fff5e8;
+      padding: 0.8em 1em;
+      border-left: 4px solid #d18a2f;
+      margin: 1em 0;
+    }
+    .template {
+      background: #f8f8f8;
+      padding: 0.8em 1em;
+      border-radius: 6px;
+      margin: 1em 0;
+    }
+    ul li, ol li {
+      margin: 0.35em 0;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Lesson: Images and Pixels</h1>
+</header>
+
+<main>
+  <section>
+    <h2>Big idea</h2>
+    <p>
+      Shapes, images, and animations are all made of pixels. A line does not magically appear because we call
+      <code>line()</code>. At the lowest level, the computer colors many individual pixels so that our eyes see a line.
+      Today we will work at that lower level.
+    </p>
+  </section>
+
+  <section>
+    <h2>Goals</h2>
+    <ul>
+      <li>Understand that the screen is a grid of pixels.</li>
+      <li>Use Processing's built-in <code>pixels[]</code> array.</li>
+      <li>Convert between 2D coordinates and a 1D array index.</li>
+      <li>Understand the <code>color</code> datatype and helper functions such as <code>red()</code>, <code>green()</code>, <code>blue()</code>, and <code>brightness()</code>.</li>
+      <li>Read pixel data from a <code>PImage</code> and write new pixel colors to the screen.</li>
+      <li>See why <code>get()</code> and <code>set()</code> are convenient, but too slow for serious image processing.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>1. Pixels on the screen</h2>
+    <p>
+      Processing gives us access to the window's pixels through a built-in array called <code>pixels[]</code>.
+      Each element stores the color of one pixel.
+    </p>
+
+    <div class="note">
+      <strong>Important:</strong> before reading or writing the screen pixel array, call <code>loadPixels()</code>.
+      After you finish changing it, call <code>updatePixels()</code>.
+    </div>
+
+<pre><code>size(200, 200);
+loadPixels();
+
+for (int i = 0; i &lt; pixels.length; i++) {
+  pixels[i] = color(random(255));
+}
+
+updatePixels();</code></pre>
+
+    <p>
+      This fills the entire canvas with random grayscale values.
+    </p>
+  </section>
+
+  <section>
+    <h2>2. A 2D screen stored in a 1D array</h2>
+    <p>
+      The screen is two-dimensional, but <code>pixels[]</code> is one-dimensional. To find the correct location,
+      use this formula:
+    </p>
+
+    <div class="template">
+      <p><strong>Index formula:</strong> <code>loc = x + y * width</code></p>
+    </div>
+
+    <p>
+      Here, <code>x</code> is the column, <code>y</code> is the row, and <code>width</code> is the width of the window.
+    </p>
+
+<pre><code>loadPixels();
+
+for (int x = 0; x &lt; width; x++) {
+  for (int y = 0; y &lt; height; y++) {
+    int loc = x + y * width;
+
+    if (x % 2 == 0) {
+      pixels[loc] = color(255);
+    } else {
+      pixels[loc] = color(0);
+    }
+  }
+}
+
+updatePixels();</code></pre>
+
+    <p>
+      This creates vertical black-and-white stripes.
+    </p>
+  </section>
+
+  <section>
+    <h2>3. The <code>color</code> datatype</h2>
+    <p>
+      In Processing, a color is stored as a single value of type <code>color</code>. Even though it is stored internally
+      as an integer, we usually treat it as a special datatype for color information.
+    </p>
+
+<pre><code>color c1 = color(255, 0, 0);    // red
+color c2 = color(0, 255, 0);    // green
+color c3 = color(0, 0, 255);    // blue
+color c4 = color(128);          // gray
+color c5 = color(255, 0, 0, 120); // transparent red</code></pre>
+
+    <p>
+      The helper functions <code>red()</code>, <code>green()</code>, <code>blue()</code>, and <code>brightness()</code>
+      let us pull information back out of a color.
+    </p>
+
+<pre><code>color c = img.pixels[loc];
+float r = red(c);
+float g = green(c);
+float b = blue(c);
+float br = brightness(c);</code></pre>
+
+    <div class="note">
+      <strong>Note:</strong> <code>color()</code> accepts floats too. If you write <code>color(gray)</code> and <code>gray</code>
+      is a float, Processing converts it to a color value for you.
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Helper functions <code>get()</code> and <code>set()</code></h2>
+    <p>
+      Processing provides helper functions for reading and writing individual pixels:
+    </p>
+
+<pre><code>color c = get(mouseX, mouseY);
+set(10, 20, color(255, 0, 0));</code></pre>
+
+    <p>
+      These functions are easy to understand and are good for small demonstrations.
+    </p>
+
+    <div class="warning">
+      <strong>But:</strong> <code>get()</code> and <code>set()</code> are much slower than working directly with
+      <code>pixels[]</code>. For image processing inside nested loops, use <code>pixels[]</code> instead.
+    </div>
+
+    <p>Example idea: sample a color under the mouse and paint a large rectangle with that color.</p>
+  </section>
+
+  <section>
+    <h2>5. Working with a <code>PImage</code></h2>
+    <p>
+      A <code>PImage</code> object stores its own width, height, and pixel array.
+    </p>
+
+<pre><code>PImage img;
+
+void setup() {
+  size(300, 168);
+  img = loadImage("hedgehog.jpeg");
+}</code></pre>
+
+    <p>
+      If we want to read pixels from the image, we must also call <code>img.loadPixels()</code>.
+    </p>
+
+<pre><code>void draw() {
+  loadPixels();
+  img.loadPixels();
+
+  for (int x = 0; x &lt; width; x++) {
+    for (int y = 0; y &lt; height; y++) {
+      int loc = x + y * width;
+
+      float r = red(img.pixels[loc]);
+      float g = green(img.pixels[loc]);
+      float b = blue(img.pixels[loc]);
+
+      pixels[loc] = color(r, g, b);
+    }
+  }
+
+  updatePixels();
+}</code></pre>
+
+    <p>
+      This displays the image without calling <code>image()</code>. That may seem unnecessary, but it gives us a place to
+      insert our own pixel-processing code.
+    </p>
+  </section>
+
+  <section>
+    <h2>6. Canonical pixel-processing pattern</h2>
+    <p>Most of our image-processing examples will follow this same structure:</p>
+
+<pre><code>loadPixels();
+img.loadPixels();
+
+for (int x = 0; x &lt; img.width; x++) {
+  for (int y = 0; y &lt; img.height; y++) {
+    int loc = x + y * img.width;
+
+    // 1. Read a color from the image
+    color c = img.pixels[loc];
+
+    // 2. Extract the components
+    float r = red(c);
+    float g = green(c);
+    float b = blue(c);
+
+    // 3. Process them
+    // ... change r, g, b here ...
+
+    // 4. Write the new color to the screen
+    pixels[loc] = color(r, g, b);
+  }
+}
+
+updatePixels();</code></pre>
+  </section>
+
+  <section>
+    <h2>7. Example: grayscale</h2>
+    <p>
+      To convert a color pixel to grayscale, we can average its red, green, and blue components.
+    </p>
+
+<pre><code>float gray = (r + g + b) / 3.0;
+pixels[loc] = color(gray);</code></pre>
+
+    <p>
+      Since grayscale uses one value, Processing copies that value into the red, green, and blue channels.
+    </p>
+  </section>
+
+  <section>
+    <h2>8. Example: adjusting brightness</h2>
+    <p>
+      We can make each pixel brighter or darker by multiplying its RGB values by a factor.
+    </p>
+
+<pre><code>float adjustBrightness = map(mouseX, 0, width, 0, 2);
+
+r *= adjustBrightness;
+g *= adjustBrightness;
+b *= adjustBrightness;
+
+r = constrain(r, 0, 255);
+g = constrain(g, 0, 255);
+b = constrain(b, 0, 255);
+
+pixels[loc] = color(r, g, b);</code></pre>
+
+    <p>
+      A more interesting variation is to use distance from the mouse, creating a flashlight effect.
+    </p>
+  </section>
+
+  <section>
+    <h2>9. Example: keep one color family</h2>
+    <p>
+      We can compare each pixel to a target color. Pixels close to that target stay colorful,
+      while all others are turned to grayscale.
+    </p>
+
+<pre><code>color c = img.pixels[i];
+float r = red(c);
+float g = green(c);
+float b = blue(c);
+
+float d = dist(r, g, b, red(target), green(target), blue(target));
+
+if (d &gt; threshold) {
+  float gray = (r + g + b) / 3.0;
+  img.pixels[i] = color(gray);
+}</code></pre>
+
+    <p>
+      This is a nice example of how image processing can be used artistically, not just technically.
+    </p>
+  </section>
+
+  <section>
+    <h2>10. Example: pointillism</h2>
+    <p>
+      Instead of changing image pixels directly, we can use image colors to draw shapes.
+      In the pointillism example, we choose a random pixel, read its color, and use that color to draw a circle.
+    </p>
+
+<pre><code>int x = int(random(img.width));
+int y = int(random(img.height));
+int loc = x + y * img.width;
+
+float r = red(img.pixels[loc]);
+float g = green(img.pixels[loc]);
+float b = blue(img.pixels[loc]);
+
+fill(r, g, b, 100);
+ellipse(x, y, pointillize, pointillize);</code></pre>
+
+    <p>
+      This brings us back to shapes, but now the image acts like a color database.
+    </p>
+  </section>
+
+  <section>
+    <h2>Discussion questions</h2>
+    <ol>
+      <li>Why does the formula <code>x + y * width</code> make sense?</li>
+      <li>Why do we need <code>loadPixels()</code> and <code>updatePixels()</code>?</li>
+      <li>Why are <code>get()</code> and <code>set()</code> convenient but not ideal for heavy image work?</li>
+      <li>Why does <code>color(gray)</code> produce a grayscale color?</li>
+      <li>What changes if the image size and the canvas size do not match?</li>
+      <li>When would you write pixels directly, and when would you instead use pixel colors to draw shapes?</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>In-class exercises</h2>
+    <ol>
+      <li>Fill the canvas with random grayscale values.</li>
+      <li>Create vertical stripes by setting even columns to white and odd columns to black.</li>
+      <li>Display an image without calling <code>image()</code>.</li>
+      <li>Convert an image to grayscale.</li>
+      <li>Create a brightness slider using the mouse.</li>
+      <li>Create a flashlight effect based on distance from the mouse.</li>
+      <li>Choose a target color and keep only that color family.</li>
+      <li>Use image colors to create a pointillist drawing.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Go-getter challenge</h2>
+    <p>
+      Can you create a filter that reacts differently in different parts of the image? For example,
+      brighten only pixels near the mouse, darken pixels far away, or keep warm colors while muting cool colors.
+    </p>
+  </section>
+</main>
+
+
+
+    <section>
+      <h2>Practice Tasks</h2>
+      <ol>
+        <li><strong>Channel swap:</strong> Modify your pixel-processing code so that the red and green channels are switched. In other words, if a pixel originally has values <code>(r, g, b)</code>, the new pixel should become <code>(g, r, b)</code>.</li>
+        <li><strong>Mirror the image:</strong> Create a horizontally mirrored version of the image. Hint: when you are at pixel <code>(x, y)</code>, think about which pixel should be read from the opposite side of the row.</li>
+        <li><strong>Reflection:</strong> Write a few sentences answering the question: <em>What surprised you most about working directly with pixels?</em> You may also mention what felt confusing at first, what became clearer, or which visual effect you found most interesting.</li>
+      </ol>
+    </section>
+
+<div id="footer-placeholder"></div>
+
+<script>
+  fetch("assets/includes/footer.html")
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById("footer-placeholder").innerHTML = html;
+    })
+    .catch(err => console.error("Footer load failed:", err));
+</script>
+</body>
+</html>
