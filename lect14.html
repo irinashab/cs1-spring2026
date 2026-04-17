@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CS1 – Lesson 14: Intro to 3D in Processing</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header>
+  <h1>Lesson 14: Intro to 3D in Processing</h1>
+</header>
+
+<main>
+
+  <section>
+    <h2>Today’s goals</h2>
+    <ul>
+      <li>Switch from the default renderer to <code>P3D</code>.</li>
+      <li>Understand 3D coordinates: <code>x</code>, <code>y</code>, and <code>z</code>.</li>
+      <li>Use <code>translate()</code>, <code>rotateX()</code>, <code>rotateY()</code>, and <code>rotateZ()</code>.</li>
+      <li>Draw 3D primitives such as <code>box()</code> and <code>sphere()</code>.</li>
+      <li>Build custom 3D shapes with <code>beginShape()</code> and <code>vertex()</code>.</li>
+      <li>Experiment with lighting and level of detail.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>1. Turning on 3D</h2>
+    <p>
+      In Processing, 3D requires the <code>P3D</code> renderer. Without it, you are still in the default 2D world.
+    </p>
+<pre><code>void setup() {
+  size(400, 400, P3D);
+}</code></pre>
+
+    <p>
+      The Processing tutorial points out that <code>P3D</code> is required for actual 3D drawing, and it also gives access to features such as lighting and textures.
+    </p>
+  </section>
+
+  <section>
+    <h2>2. The coordinate system in 3D</h2>
+    <p>
+      In 2D, we worked with <code>x</code> and <code>y</code>. In 3D, we add <code>z</code>.
+    </p>
+    <ul>
+      <li><strong>x</strong>: left/right</li>
+      <li><strong>y</strong>: up/down on the screen (in Processing, positive <code>y</code> goes down)</li>
+      <li><strong>z</strong>: depth</li>
+    </ul>
+    <p>
+      A very important Processing detail: the tutorial uses a left-handed coordinate system. Positive <code>z</code> comes toward the viewer; negative <code>z</code> goes farther away.
+    </p>
+    <p>
+      This is the first place where students often get confused. “Bigger z” does not mean “higher.” It means “closer to us.”
+    </p>
+  </section>
+
+  <section>
+    <h2>3. You do not place 3D shapes by adding a z-argument everywhere</h2>
+    <p>
+      In 2D, students are used to code like <code>rect(x, y, w, h)</code>. In 3D, we usually move the coordinate system first and then draw the shape around the new origin.
+    </p>
+<pre><code>translate(width/2, height/2, 0);
+rectMode(CENTER);
+rect(0, 0, 100, 100);</code></pre>
+
+    <p>
+      The key idea is the same as in 2D transformations, except now <code>translate()</code> can take three arguments.
+    </p>
+<pre><code>translate(x, y, z);</code></pre>
+  </section>
+
+  <section>
+    <h2>4. First example: a simple box</h2>
+    <p>
+      Processing gives us some built-in 3D primitives. The simplest one is <code>box()</code>.
+    </p>
+<pre><code>// 3D primitive - box
+
+void setup() {
+  size(400, 400, P3D);
+}
+
+void draw() {
+  background(0);
+  translate(width/2, height/2);
+  // rotateY(frameCount * PI / 60);
+  // rotateX(frameCount * PI / 60);
+  // rotateZ(frameCount * PI / 60);
+  box(150);
+}</code></pre>
+
+    <p>
+      Notice how the box is centered by <code>translate()</code>. The box itself does not take <code>x</code>, <code>y</code>, and <code>z</code> location arguments. We move the world, then draw the shape.
+    </p>
+
+    <h3>Try this</h3>
+    <ul>
+      <li>Uncomment one rotation at a time.</li>
+      <li>Then try two rotations together.</li>
+      <li>Ask yourself: which axis makes the box spin like a ceiling fan? Which makes it tumble forward?</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>5. Rotations in 3D</h2>
+    <p>
+      In regular 2D Processing, <code>rotate()</code> is really rotation around the <code>z</code>-axis. In 3D we can be more explicit:
+    </p>
+    <ul>
+      <li><code>rotateX(...)</code></li>
+      <li><code>rotateY(...)</code></li>
+      <li><code>rotateZ(...)</code></li>
+    </ul>
+
+<pre><code>translate(width/2, height/2, 0);
+rotateX(PI/8);
+rotateY(PI/8);
+rotateZ(PI/8);
+box(100);</code></pre>
+
+    <p>
+      Order matters. If you change the order of the rotations, you may get a different result.
+    </p>
+  </section>
+
+  <section>
+    <h2>6. Building a cube “by hand”</h2>
+    <p>
+      Built-in shapes are convenient, but they hide the geometry. This example draws a cube edge by edge with 3D lines.
+    </p>
+<pre><code>// 3D cube done from scratch
+
+float theta = 0;
+
+void setup() {
+  size(200, 200, P3D);
+}
+
+void draw() {
+  background(174);
+  smooth();
+  pushMatrix();
+  translate(50, 50);
+  // rotateX(theta);
+  // rotateY(theta);
+  // rotateZ(theta);
+
+  stroke(255, 0, 0);
+  strokeWeight(3);
+
+  line(0, 0, 0, 0, 0, -100);
+  line(0, 0, -100, 100, 0, -100);
+  line(100, 0, -100, 100, 0, 0);
+  line(100, 0, 0, 0, 0, 0);
+
+  line(0, 0, 0, 0, 100, 0);
+  line(0, 100, 0, 100, 100, 0);
+  line(100, 100, 0, 100, 100, -100);
+  line(100, 100, 0, 100, 0, 0);
+
+  line(100, 100, -100, 100, 0, -100);
+  line(0, 0, -100, 0, 100, -100);
+  line(0, 100, 0, 0, 100, -100);
+  line(0, 100, -100, 100, 100, -100);
+
+  theta += 0.01;
+  popMatrix();
+}</code></pre>
+
+    <p>
+      This is a nice bridge from 2D to 3D because it shows that a 3D point is just three numbers, and a 3D line needs six coordinates: 
+      <code>line(x1, y1, z1, x2, y2, z2)</code>.
+    </p>
+
+    <h3>Teaching note</h3>
+    <p>
+      This sketch is also a good place to review <code>push()</code> and <code>pop()</code>. They keep transformations from affecting everything else in the sketch.
+    </p>
+  </section>
+
+  <section>
+    <h2>7. Sphere and detail level</h2>
+    <p>
+      Processing also gives us <code>sphere()</code>. One useful companion function is <code>sphereDetail()</code>, which changes how smooth the sphere looks.
+    </p>
+<pre><code>int detail = 10;
+int depth = 100;
+
+void setup() {
+  size(400, 400, P3D);
+}
+
+void draw() {
+  background(50);
+  translate(width/2, height/2, depth);
+  rotateY(PI * frameCount / 125);
+  lights();
+  fill(100, 50, 175);
+  stroke(150, 75, 255);
+  sphereDetail(detail);
+  sphere(20);
+}
+
+void keyPressed() {
+  if (key == CODED) {
+    if (keyCode == UP) {
+      if (depth &lt; 310) {
+        depth += 20;
+        detail += 2;
+      }
+    } else if (keyCode == DOWN) {
+      if (depth &gt; 70) {
+        depth -= 20;
+        detail -= 2;
+      }
+    }
+  }
+}</code></pre>
+
+    <p>
+      In this sketch, the arrow keys change both the distance from the viewer and the number of triangles used to approximate the sphere.
+    </p>
+
+    <h3>Questions</h3>
+    <ul>
+      <li>What happens when the detail is very low?</li>
+      <li>How does changing <code>depth</code> affect the illusion of perspective?</li>
+      <li>Why do we call <code>lights()</code> here?</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>8. Lighting</h2>
+    <p>
+      Without lighting, many 3D shapes look flat. One of the easiest ways to improve the illusion of depth is to add light.
+    </p>
+<pre><code>// There are different kinds of lighting:
+// ambientLight(), directionalLight(), spotLight(), pointLight()
+
+size(500, 500, P3D);
+background(0);
+noStroke();
+specular(50);
+shininess(5);
+emissive(25);
+lightSpecular(0, 0, 255);
+pointLight(125, 50, 50, 300, 75, 200);
+lightFalloff(.001, .01, 0);
+ambientLight(0, 40, 0);
+translate(width/2, height/2, 0);
+sphere(150);</code></pre>
+
+    <p>
+      This sketch is a demo rather than a full animation, but it introduces useful vocabulary:
+    </p>
+    <ul>
+      <li><code>ambientLight()</code> adds general background light.</li>
+      <li><code>pointLight()</code> places a light source at a position in 3D space.</li>
+      <li><code>specular()</code> and <code>shininess()</code> affect highlights.</li>
+    </ul>
+
+    <p>
+      Students do not need to memorize all light functions immediately. The main conceptual point is that light helps our eyes read form and depth.
+    </p>
+  </section>
+
+  <section>
+    <h2>9. Custom 3D shapes with vertices</h2>
+    <p>
+      The tutorial emphasizes that 3D is not limited to <code>box()</code> and <code>sphere()</code>. We can also create our own shapes by combining vertices.
+    </p>
+
+    <p>
+      Your example below is especially nice because it connects geometry, arrays, classes, and keyboard interaction. It can behave like a cube, pyramid, cone, or cylinder depending on settings.
+    </p>
+
+<pre><code>int pts = 4;
+float angle = 0;
+float radius = 115;
+float cylinderLength = 100;
+Point3D vertices[][];
+boolean isPyramid = true;
+
+void setup() {
+  size(400, 400, P3D);
+  noStroke();
+}
+
+void draw() {
+  background(170, 95, 95);
+  lights();
+  fill(255, 200, 200);
+  translate(width/2, height/2);
+  rotateX(frameCount * PI / 150);
+  rotateY(frameCount * PI / 130);
+  rotateZ(frameCount * PI / 180);
+
+  vertices = new Point3D[2][pts + 1];
+
+  for (int i = 0; i &lt; 2; i++) {
+    angle = 0;
+    for (int j = 0; j &lt;= pts; j++) {
+      vertices[i][j] = new Point3D();
+
+      if (isPyramid) {
+        if (i == 1) {
+          vertices[i][j].x = 0;
+          vertices[i][j].y = 0;
+        } else {
+          vertices[i][j].x = cos(radians(angle)) * radius;
+          vertices[i][j].y = sin(radians(angle)) * radius;
+        }
+      } else {
+        vertices[i][j].x = cos(radians(angle)) * radius;
+        vertices[i][j].y = sin(radians(angle)) * radius;
+      }
+
+      vertices[i][j].z = cylinderLength;
+      angle += 360.0 / pts;
+    }
+    cylinderLength *= -1;
+  }
+
+  beginShape(QUAD_STRIP);
+  for (int j = 0; j &lt;= pts; j++) {
+    vertex(vertices[0][j].x, vertices[0][j].y, vertices[0][j].z);
+    vertex(vertices[1][j].x, vertices[1][j].y, vertices[1][j].z);
+  }
+  endShape();
+
+  for (int i = 0; i &lt; 2; i++) {
+    beginShape();
+    for (int j = 0; j &lt; pts; j++) {
+      vertex(vertices[i][j].x, vertices[i][j].y, vertices[i][j].z);
+    }
+    endShape(CLOSE);
+  }
+}</code></pre>
+
+    <p>
+      This sketch also relies on a small helper class:
+    </p>
+<pre><code>class Point3D {
+  float x, y, z;
+
+  Point3D() {
+  }
+
+  Point3D(float x, float y, float z) {
+    this.x = x;
+    this.y = y;
+    this.z = z;
+  }
+}</code></pre>
+
+    <h3>Why this example is useful</h3>
+    <ul>
+      <li>It reinforces that a 3D point is a data object.</li>
+      <li>It shows how trigonometry can generate circular arrangements of points.</li>
+      <li>It uses arrays to organize related geometry.</li>
+      <li>It shows that changing just a few coordinates can radically change the final shape.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>10. Important ideas from the tutorial</h2>
+    <ul>
+      <li>Use <code>P3D</code> when you need 3D, lighting, or certain OpenGL-based effects.</li>
+      <li>In Processing 3D, position is usually controlled with transformations, not by adding extra arguments to every shape function.</li>
+      <li>Positive <code>z</code> comes toward the viewer.</li>
+      <li>Rotations around different axes create very different visual effects.</li>
+      <li>3D primitives are easy to start with, but custom vertex-based shapes give you far more control.</li>
+      <li>Lighting often makes the difference between “flat object” and “convincing form.”</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>11. Common mistakes</h2>
+    <ul>
+      <li>Forgetting to write <code>size(..., P3D)</code>.</li>
+      <li>Assuming that <code>rect()</code>, <code>box()</code>, or <code>sphere()</code> take position arguments the same way 2D functions do.</li>
+      <li>Mixing up what <code>z</code> means.</li>
+      <li>Applying transformations without <code>push()</code>/<code>pop()</code> and then wondering why everything moves.</li>
+      <li>Thinking rotation order does not matter.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>12. Suggested live-coding sequence</h2>
+    <ol>
+      <li>Start with a plain <code>box()</code> in the center.</li>
+      <li>Add one rotation.</li>
+      <li>Add a second rotation.</li>
+      <li>Replace the box with a <code>sphere()</code> and call <code>sphereDetail()</code>.</li>
+      <li>Add <code>lights()</code>.</li>
+      <li>Show one custom line-based or vertex-based shape.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>13. Practice problems</h2>
+    <ol>
+      <li>Make a box spin around two axes at different speeds.</li>
+      <li>Create two spheres: one close to the viewer and one far away.</li>
+      <li>Modify the hand-built cube so it rotates continuously.</li>
+      <li>Change the custom shape sketch so the number of points can go below 4. What breaks, and why?</li>
+      <li>Add a key that switches between <code>box()</code> and <code>sphere()</code>.</li>
+      <li>Experiment with light color and position. Which changes are most noticeable?</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>14. Reflection prompt</h2>
+    <p>
+      What feels genuinely new in 3D compared to 2D: the extra coordinate, the transformations, the lighting, or the mental challenge of imagining the object in space?
+    </p>
+  </section>
+
+</main>
+
+<div id="footer-placeholder"></div>
+
+<script>
+  fetch("assets/includes/footer.html")
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById("footer-placeholder").innerHTML = html;
+    })
+    .catch(err => console.error("Footer load failed:", err));
+</script>
+
+</body>
+</html>
